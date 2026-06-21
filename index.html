@@ -1,528 +1,1373 @@
 <!doctype html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Dinh's dynamic web portfolio for frontend, UI, and responsive website work.">
-    <title>Dinh | Dynamic Portfolio</title>
+    <meta name="description" content="Dean Phạm Blog - hành trình học tập, tài chính cá nhân, tài chính doanh nghiệp, triết lý sống, kỹ năng thực tế và tin công nghệ.">
+    <title>Dean Phạm Blog | Xây dựng cuộc đời như một công trình</title>
     <link rel="canonical" href="https://deanpham117.github.io/Portfolio/">
-    <meta property="og:title" content="Dinh | Dynamic Portfolio">
-    <meta property="og:description" content="A dynamic portfolio with welcome page, interactive hero, frontend projects, and responsive UI work.">
+    <meta name="theme-color" content="#2D6A4F">
+    <meta property="og:title" content="Dean Phạm Blog">
+    <meta property="og:description" content="Một không gian cá nhân chân thật về học tập, tài chính, đầu tư, vận hành và những bài học sống thực tế.">
     <meta property="og:url" content="https://deanpham117.github.io/Portfolio/">
-    <link
-      rel="preload"
-      as="image"
-      href="assets/hero-workspace-1400.webp"
-      imagesrcset="assets/hero-workspace-760.webp 760w, assets/hero-workspace-1400.webp 1400w"
-      imagesizes="100vw"
-    >
-    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-    <link rel="stylesheet" href="styles.css">
-    <noscript>
-      <style>
-        body.welcome-pending .site-header,
-        body.welcome-pending .mobile-nav,
-        body.welcome-pending main,
-        body.welcome-pending .site-footer {
-          opacity: 1;
-          visibility: visible;
-          pointer-events: auto;
-        }
-      </style>
-    </noscript>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232D6A4F'/%3E%3Ccircle cx='18' cy='32' r='5' fill='%23B7E4C7'/%3E%3Ctext x='28' y='39' font-family='Georgia' font-size='23' font-weight='700' fill='%23F9F5F0'%3ED%3C/text%3E%3C/svg%3E">
+    <style>
+      :root {
+        color-scheme: light;
+        --forest: #2D6A4F;
+        --sage: #52B788;
+        --sage-lt: #B7E4C7;
+        --cream: #F9F5F0;
+        --brown: #6B4226;
+        --tan: #A0714F;
+        --bark: #3E2723;
+        --warm-gray: #8D8178;
+        --off-white: #FDFAF6;
+        --ink: #211816;
+        --line: rgba(62, 39, 35, 0.14);
+        --shadow: 0 24px 70px rgba(62, 39, 35, 0.12);
+        --radius: 8px;
+        --max: 1180px;
+        --display: "Playfair Display", Georgia, serif;
+        --body: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+        overflow-x: hidden;
+      }
+
+      body {
+        margin: 0;
+        overflow-x: hidden;
+        background:
+          radial-gradient(circle at top left, rgba(82, 183, 136, 0.16), transparent 32rem),
+          linear-gradient(180deg, var(--cream) 0%, #fffaf5 42%, #f4eadf 100%);
+        color: var(--ink);
+        font-family: var(--body);
+        font-size: 16px;
+        letter-spacing: 0;
+      }
+
+      body.menu-open { overflow: hidden; }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      input,
+      textarea {
+        font: inherit;
+      }
+
+      button { border: 0; }
+
+      .container {
+        width: min(var(--max), calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        border-bottom: 1px solid transparent;
+        background: rgba(249, 245, 240, 0.78);
+        backdrop-filter: blur(16px);
+        transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+      }
+
+      .site-header.is-scrolled {
+        border-color: var(--line);
+        background: rgba(253, 250, 246, 0.94);
+        box-shadow: 0 12px 34px rgba(62, 39, 35, 0.08);
+      }
+
+      .nav-wrap {
+        display: flex;
+        min-height: 76px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--bark);
+        font-family: var(--display);
+        font-size: 1.25rem;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .brand-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 999px;
+        background: var(--forest);
+        box-shadow: 0 0 0 6px rgba(45, 106, 79, 0.1);
+      }
+
+      .desktop-nav {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(12px, 1.6vw, 22px);
+        color: rgba(62, 39, 35, 0.72);
+        font-size: 0.91rem;
+        font-weight: 750;
+      }
+
+      .desktop-nav a,
+      .footer-links a {
+        transition: color 160ms ease;
+      }
+
+      .desktop-nav a:hover,
+      .footer-links a:hover {
+        color: var(--forest);
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .contact-cta,
+      .btn {
+        display: inline-flex;
+        min-height: 44px;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-weight: 800;
+        transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .contact-cta,
+      .btn.primary {
+        border: 1px solid var(--forest);
+        background: var(--forest);
+        color: #fff;
+        padding: 0 16px;
+        box-shadow: 0 14px 34px rgba(45, 106, 79, 0.18);
+      }
+
+      .btn.secondary {
+        border: 1px solid rgba(62, 39, 35, 0.2);
+        background: rgba(253, 250, 246, 0.7);
+        color: var(--bark);
+        padding: 0 16px;
+      }
+
+      .contact-cta:hover,
+      .btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .menu-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--off-white);
+        color: var(--bark);
+        cursor: pointer;
+      }
+
+      .mobile-nav {
+        position: fixed;
+        inset: 76px 16px auto;
+        z-index: 40;
+        display: none;
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(253, 250, 246, 0.98);
+        box-shadow: var(--shadow);
+        padding: 12px;
+      }
+
+      .mobile-nav.is-open { display: grid; }
+
+      .mobile-nav a {
+        border-radius: var(--radius);
+        padding: 13px 14px;
+        color: var(--bark);
+        font-weight: 800;
+      }
+
+      .mobile-nav a:hover {
+        background: var(--cream);
+        color: var(--forest);
+      }
+
+      .hero {
+        position: relative;
+        min-height: min(820px, calc(100vh - 76px));
+        display: grid;
+        align-items: center;
+        overflow: hidden;
+        padding: clamp(70px, 8vw, 110px) 0 clamp(54px, 7vw, 90px);
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: auto -10% -18% 48%;
+        height: 54%;
+        background: linear-gradient(135deg, rgba(45, 106, 79, 0.18), rgba(160, 113, 79, 0.1));
+        pointer-events: none;
+        transform: skewY(-6deg);
+      }
+
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 0.62fr) minmax(320px, 0.38fr);
+        gap: clamp(36px, 7vw, 90px);
+        align-items: center;
+      }
+
+      .eyebrow {
+        margin: 0 0 14px;
+        color: var(--brown);
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: var(--bark);
+        font-family: var(--display);
+        letter-spacing: 0;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-size: clamp(3rem, 7vw, 5.55rem);
+        line-height: 0.95;
+      }
+
+      .hero-copy {
+        max-width: 720px;
+        margin: 24px 0 0;
+        color: rgba(62, 39, 35, 0.74);
+        font-size: clamp(1rem, 1.6vw, 1.2rem);
+        line-height: 1.78;
+      }
+
+      .hero-actions,
+      .section-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .stat-card,
+      .surface-card,
+      .timeline-card,
+      .framework-card,
+      .portfolio-item,
+      .video-card,
+      .news-panel {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: rgba(253, 250, 246, 0.82);
+        box-shadow: 0 16px 44px rgba(62, 39, 35, 0.07);
+      }
+
+      .stat-card {
+        min-height: 96px;
+        padding: 16px;
+      }
+
+      .stat-card strong {
+        display: block;
+        color: var(--forest);
+        font-family: var(--mono);
+        font-size: 1.35rem;
+      }
+
+      .stat-card span {
+        display: block;
+        margin-top: 8px;
+        color: var(--warm-gray);
+        font-size: 0.86rem;
+        line-height: 1.45;
+      }
+
+      .hero-visual {
+        position: relative;
+        min-height: 520px;
+        display: grid;
+        place-items: center;
+      }
+
+      .ring-system {
+        position: relative;
+        width: min(100%, 420px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(253, 250, 246, 0.95) 0 15%, transparent 15.4%),
+          repeating-radial-gradient(circle, transparent 0 11%, rgba(45, 106, 79, 0.16) 11.5% 12.2%, transparent 12.8% 22%),
+          conic-gradient(from 140deg, var(--forest), var(--sage), var(--tan), var(--brown), var(--forest));
+        box-shadow: 0 34px 90px rgba(45, 106, 79, 0.23);
+      }
+
+      .ring-system::before,
+      .ring-system::after {
+        content: "";
+        position: absolute;
+        border: 1px solid rgba(253, 250, 246, 0.64);
+        border-radius: 50%;
+      }
+
+      .ring-system::before { inset: 12%; }
+      .ring-system::after { inset: 26%; }
+
+      .visual-note {
+        position: absolute;
+        right: 0;
+        bottom: 18%;
+        width: min(260px, 76%);
+        border: 1px solid rgba(45, 106, 79, 0.18);
+        border-radius: var(--radius);
+        background: rgba(253, 250, 246, 0.92);
+        box-shadow: var(--shadow);
+        padding: 18px;
+      }
+
+      .visual-note span {
+        color: var(--brown);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .visual-note strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--bark);
+        font-size: 1.05rem;
+      }
+
+      .section {
+        padding: clamp(72px, 10vw, 118px) 0;
+      }
+
+      .section.alt {
+        background:
+          linear-gradient(180deg, rgba(183, 228, 199, 0.18), rgba(253, 250, 246, 0.74)),
+          var(--off-white);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.78fr) minmax(260px, 0.22fr);
+        gap: 28px;
+        align-items: end;
+        margin-bottom: 34px;
+      }
+
+      .section h2 {
+        max-width: 830px;
+        margin: 0;
+        font-size: clamp(2.1rem, 4.6vw, 4.05rem);
+        line-height: 1.02;
+      }
+
+      .section-lede {
+        margin: 0;
+        color: rgba(62, 39, 35, 0.68);
+        line-height: 1.72;
+      }
+
+      .timeline {
+        position: relative;
+        display: grid;
+        gap: 18px;
+        padding-left: 24px;
+      }
+
+      .timeline::before {
+        content: "";
+        position: absolute;
+        top: 8px;
+        bottom: 8px;
+        left: 7px;
+        width: 2px;
+        background: linear-gradient(180deg, var(--sage), var(--forest), transparent);
+      }
+
+      .timeline-card {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(160px, 0.25fr) minmax(0, 0.75fr);
+        gap: 26px;
+        border-left: 3px solid transparent;
+        padding: clamp(20px, 3vw, 28px);
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+      }
+
+      .timeline-card::before {
+        content: "";
+        position: absolute;
+        top: 28px;
+        left: -25px;
+        width: 14px;
+        height: 14px;
+        border: 3px solid var(--cream);
+        border-radius: 50%;
+        background: var(--forest);
+        box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.24);
+      }
+
+      .timeline-card:hover,
+      .timeline-card.is-active {
+        border-left-color: var(--forest);
+        box-shadow: var(--shadow);
+        transform: translateY(-2px);
+      }
+
+      .timeline-meta {
+        display: grid;
+        gap: 8px;
+        align-content: start;
+      }
+
+      .year {
+        color: var(--forest);
+        font-family: var(--mono);
+        font-size: 1.05rem;
+        font-weight: 800;
+      }
+
+      .timeline-card h3,
+      .framework-card h3,
+      .video-card h3 {
+        margin: 0;
+        font-size: 1.24rem;
+      }
+
+      .timeline-body {
+        display: grid;
+        gap: 10px;
+      }
+
+      .timeline-body p,
+      .framework-card p,
+      .video-card p,
+      .portfolio-details p {
+        margin: 0;
+        color: rgba(62, 39, 35, 0.72);
+        line-height: 1.68;
+      }
+
+      .timeline-body strong { color: var(--bark); }
+
+      .finance-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(340px, 1.08fr);
+        gap: clamp(28px, 5vw, 64px);
+        align-items: start;
+      }
+
+      .principles {
+        display: grid;
+        gap: 10px;
+        margin: 24px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .principles li {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 12px;
+        align-items: start;
+        color: rgba(62, 39, 35, 0.72);
+      }
+
+      .principles span {
+        display: inline-grid;
+        width: 28px;
+        height: 28px;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--forest);
+        color: white;
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 800;
+      }
+
+      .dashboard { padding: clamp(20px, 3vw, 30px); }
+
+      .dashboard-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .dashboard-top strong {
+        color: var(--bark);
+        font-family: var(--display);
+        font-size: 1.35rem;
+      }
+
+      .tab-list,
+      .filter-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .tab-button,
+      .filter-button {
+        min-height: 38px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--off-white);
+        color: var(--bark);
+        cursor: pointer;
+        padding: 0 14px;
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .tab-button.is-active,
+      .filter-button.is-active {
+        border-color: var(--forest);
+        background: var(--forest);
+        color: #fff;
+      }
+
+      .tab-panel { display: none; }
+
+      .tab-panel.is-active {
+        display: grid;
+        gap: 16px;
+      }
+
+      .progress-row {
+        display: grid;
+        gap: 8px;
+      }
+
+      .progress-row header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        color: rgba(62, 39, 35, 0.78);
+        font-size: 0.91rem;
+        font-weight: 750;
+      }
+
+      .track {
+        height: 10px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(183, 228, 199, 0.42);
+      }
+
+      .track span {
+        display: block;
+        width: var(--value);
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--forest), var(--sage));
+      }
+
+      .mini-chart {
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 9px;
+        align-items: end;
+        min-height: 164px;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+
+      .bar {
+        position: relative;
+        min-height: 36px;
+        height: var(--h);
+        border-radius: 7px 7px 0 0;
+        background: linear-gradient(180deg, var(--forest), var(--sage));
+      }
+
+      .bar::after {
+        content: attr(data-year);
+        position: absolute;
+        left: 50%;
+        bottom: -24px;
+        color: var(--warm-gray);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        transform: translateX(-50%);
+      }
+
+      .bar:hover::before {
+        content: attr(data-tip);
+        position: absolute;
+        left: 50%;
+        bottom: calc(100% + 10px);
+        width: max-content;
+        max-width: 160px;
+        border-radius: 6px;
+        background: var(--bark);
+        color: var(--cream);
+        padding: 7px 9px;
+        font-size: 0.73rem;
+        transform: translateX(-50%);
+      }
+
+      .framework-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .framework-card {
+        display: grid;
+        gap: 14px;
+        padding: clamp(20px, 3vw, 28px);
+      }
+
+      .framework-card i {
+        width: 42px;
+        height: 42px;
+        display: grid;
+        place-items: center;
+        border-radius: var(--radius);
+        background: rgba(82, 183, 136, 0.16);
+        color: var(--forest);
+        font-size: 1.35rem;
+      }
+
+      .business-banner,
+      .repair-banner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-top: 20px;
+        border-radius: var(--radius);
+        background: var(--bark);
+        color: var(--cream);
+        padding: clamp(20px, 3vw, 30px);
+      }
+
+      .business-banner p,
+      .repair-banner p {
+        max-width: 760px;
+        margin: 0;
+        line-height: 1.62;
+      }
+
+      .business-banner a,
+      .repair-banner a {
+        flex: 0 0 auto;
+        border-radius: var(--radius);
+        background: var(--sage-lt);
+        color: var(--bark);
+        padding: 12px 15px;
+        font-weight: 900;
+      }
+
+      .portfolio-toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+      }
+
+      .portfolio-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .portfolio-item {
+        overflow: hidden;
+      }
+
+      .portfolio-summary {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: 16px;
+        align-items: center;
+        width: 100%;
+        background: transparent;
+        color: var(--bark);
+        cursor: pointer;
+        padding: 18px;
+        text-align: left;
+      }
+
+      .tag {
+        display: inline-flex;
+        min-height: 28px;
+        align-items: center;
+        border-radius: 999px;
+        background: rgba(45, 106, 79, 0.12);
+        color: var(--forest);
+        padding: 0 10px;
+        font-family: var(--mono);
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .tag.operations {
+        background: rgba(107, 66, 38, 0.13);
+        color: var(--brown);
+      }
+
+      .tag.personal {
+        background: rgba(82, 183, 136, 0.16);
+        color: #1e6a49;
+      }
+
+      .portfolio-title strong {
+        display: block;
+        font-family: var(--display);
+        font-size: 1.18rem;
+      }
+
+      .portfolio-title span {
+        display: block;
+        margin-top: 5px;
+        color: var(--warm-gray);
+        font-size: 0.83rem;
+      }
+
+      .portfolio-summary i {
+        color: var(--forest);
+        font-size: 1.2rem;
+        transition: transform 180ms ease;
+      }
+
+      .portfolio-item.is-open .portfolio-summary i { transform: rotate(90deg); }
+
+      .portfolio-details {
+        display: none;
+        border-top: 1px solid var(--line);
+        padding: 0 18px 18px;
+      }
+
+      .portfolio-item.is-open .portfolio-details {
+        display: grid;
+        gap: 14px;
+      }
+
+      .case-flow {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .case-step {
+        border-radius: var(--radius);
+        background: rgba(183, 228, 199, 0.22);
+        padding: 12px;
+      }
+
+      .case-step span {
+        color: var(--brown);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 800;
+      }
+
+      .case-step p {
+        margin-top: 8px;
+        font-size: 0.86rem;
+      }
+
+      .philosophy-stack {
+        display: grid;
+        gap: 16px;
+      }
+
+      .thought {
+        border-left: 3px solid var(--forest);
+        background: rgba(253, 250, 246, 0.68);
+        padding: clamp(20px, 3vw, 32px);
+      }
+
+      .thought span {
+        color: var(--brown);
+        font-family: var(--mono);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .thought p {
+        max-width: 920px;
+        margin: 12px 0 0;
+        color: var(--bark);
+        font-family: var(--display);
+        font-size: clamp(1.36rem, 2.4vw, 2rem);
+        line-height: 1.42;
+      }
+
+      .video-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .video-card { overflow: hidden; }
+
+      .thumb {
+        position: relative;
+        min-height: 180px;
+        background:
+          linear-gradient(135deg, rgba(45, 106, 79, 0.86), rgba(107, 66, 38, 0.72)),
+          repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.08) 0 1px, transparent 1px 12px);
+      }
+
+      .thumb .play {
+        position: absolute;
+        left: 20px;
+        bottom: 18px;
+        width: 54px;
+        height: 54px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--forest);
+        color: white;
+        font-size: 1.35rem;
+      }
+
+      .duration,
+      .difficulty {
+        position: absolute;
+        top: 14px;
+        border-radius: 999px;
+        background: rgba(253, 250, 246, 0.92);
+        color: var(--bark);
+        padding: 6px 9px;
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 800;
+      }
+
+      .duration { right: 14px; }
+      .difficulty { left: 14px; }
+
+      .video-body {
+        display: grid;
+        gap: 12px;
+        padding: 18px;
+      }
+
+      .skill-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .skill-tags span {
+        border-radius: 999px;
+        background: var(--cream);
+        color: var(--brown);
+        padding: 6px 9px;
+        font-size: 0.75rem;
+        font-weight: 800;
+      }
+
+      .news-panel { overflow: hidden; }
+
+      .news-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border-bottom: 1px solid var(--line);
+        padding: 18px;
+      }
+
+      .timestamp {
+        margin: 0;
+        color: var(--warm-gray);
+        font-family: var(--mono);
+        font-size: 0.75rem;
+      }
+
+      .news-list { display: grid; }
+
+      .news-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        border-bottom: 1px solid rgba(62, 39, 35, 0.09);
+        padding: 16px 18px;
+      }
+
+      .news-item:last-child { border-bottom: 0; }
+
+      .news-item h3 {
+        margin: 0;
+        font-family: var(--body);
+        font-size: 0.96rem;
+        font-weight: 800;
+      }
+
+      .news-item p {
+        margin: 6px 0 0;
+        color: var(--warm-gray);
+        font-size: 0.82rem;
+        line-height: 1.55;
+      }
+
+      .badge {
+        border-radius: 999px;
+        background: var(--forest);
+        color: white;
+        padding: 7px 9px;
+        font-family: var(--mono);
+        font-size: 0.66rem;
+        font-weight: 800;
+      }
+
+      .badge.fintech,
+      .badge.cloud { background: var(--brown); }
+      .badge.startup { background: var(--sage); color: var(--bark); }
+      .badge.device { background: var(--warm-gray); }
+      .badge.policy { background: var(--bark); }
+
+      .site-footer {
+        background: var(--bark);
+        color: var(--cream);
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr 1fr;
+        gap: clamp(26px, 6vw, 74px);
+        padding: clamp(54px, 8vw, 84px) 0;
+      }
+
+      .footer-grid h2,
+      .footer-grid h3 {
+        margin: 0 0 14px;
+        color: var(--cream);
+      }
+
+      .footer-grid p,
+      .footer-grid a {
+        color: rgba(249, 245, 240, 0.78);
+      }
+
+      .footer-links,
+      .contact-lines {
+        display: grid;
+        gap: 9px;
+      }
+
+      .contact-lines a {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+      }
+
+      .bottom-bar {
+        border-top: 1px solid rgba(249, 245, 240, 0.14);
+        color: rgba(249, 245, 240, 0.72);
+        padding: 18px 0;
+        font-size: 0.84rem;
+      }
+
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(18px);
+        transition: opacity 460ms ease, transform 460ms ease;
+      }
+
+      [data-reveal].is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @media (max-width: 1023px) {
+        .desktop-nav,
+        .contact-cta { display: none; }
+        .menu-toggle { display: grid; }
+        .hero-grid,
+        .finance-grid,
+        .section-head,
+        .footer-grid { grid-template-columns: 1fr; }
+        .hero-visual { min-height: 380px; }
+        .visual-note { right: 8%; }
+      }
+
+      @media (max-width: 767px) {
+        .container { width: min(100% - 32px, 520px); }
+        .nav-wrap { min-height: 68px; }
+        .mobile-nav { top: 68px; }
+        .hero { min-height: auto; padding-top: 54px; }
+        .hero-stats,
+        .framework-grid,
+        .video-grid,
+        .case-flow { grid-template-columns: 1fr; }
+        .timeline { padding-left: 18px; }
+        .timeline-card { grid-template-columns: 1fr; gap: 16px; }
+        .timeline-card::before { left: -19px; }
+        .portfolio-toolbar,
+        .dashboard-top,
+        .business-banner,
+        .repair-banner,
+        .news-header { align-items: stretch; flex-direction: column; }
+        .portfolio-summary { grid-template-columns: 1fr auto; }
+        .portfolio-summary .tag { grid-column: 1 / -1; width: fit-content; }
+        .news-item { grid-template-columns: 1fr; }
+        .brand { font-size: 1.1rem; }
+      }
+    </style>
   </head>
-  <body class="welcome-pending">
-    <svg class="icon-sprite" aria-hidden="true" focusable="false">
-      <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
-      <symbol id="icon-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
-      <symbol id="icon-theme" viewBox="0 0 24 24"><path d="M12 4v2M12 18v2M4 12h2M18 12h2M6.6 6.6 8 8M16 16l1.4 1.4M17.4 6.6 16 8M8 16l-1.4 1.4"/><circle cx="12" cy="12" r="3.2"/></symbol>
-      <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
-      <symbol id="icon-rocket" viewBox="0 0 24 24"><path d="M8 16c-2 1-3 3-3 3s2-1 3-3ZM14 4c3 1 5 3 6 6-2 5-6 8-11 10l-5-5C6 10 9 6 14 4Z"/><path d="M9 15 5 11M13 7l4 4"/><circle cx="14.5" cy="9.5" r="1.5"/></symbol>
-      <symbol id="icon-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7L12 3ZM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15ZM5 14l.8 2.2L8 17l-2.2.8L5 20l-.8-2.2L2 17l2.2-.8L5 14Z"/></symbol>
-      <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></symbol>
-      <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
-      <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
-      <symbol id="icon-send" viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4 18-7Z"/></symbol>
-      <symbol id="icon-panel" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M9 10v9"/></symbol>
-      <symbol id="icon-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></symbol>
-      <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></symbol>
-      <symbol id="icon-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v7H4V6h7"/></symbol>
-      <symbol id="icon-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></symbol>
-    </svg>
-    <div
-      class="welcome-gate"
-      data-welcome-gate
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="welcome-title"
-      aria-describedby="welcome-copy"
-      tabindex="-1"
-      hidden
-    >
-      <div class="welcome-card">
-        <div class="welcome-intro">
-          <p class="welcome-kicker">Welcome</p>
-          <h2 id="welcome-title">Hi, I'm Dinh.</h2>
-          <p class="welcome-role"><span>Frontend Portfolio</span></p>
-          <p id="welcome-copy">
-            I build clean, responsive web interfaces with a calm visual system and useful interaction details.
-          </p>
-          <div class="welcome-skill-strip" aria-label="Focus areas">
-            <span>HTML</span>
-            <span>CSS</span>
-            <span>JavaScript</span>
-            <span>Responsive UI</span>
-          </div>
-        </div>
-
-        <aside class="welcome-visual" aria-hidden="true">
-          <div class="welcome-panel">
-            <span class="welcome-panel-line"></span>
-            <span class="welcome-panel-line short"></span>
-            <span class="welcome-panel-bar one"></span>
-            <span class="welcome-panel-bar two"></span>
-            <span class="welcome-panel-bar three"></span>
-            <span class="welcome-panel-glow"></span>
-            <strong>D</strong>
-          </div>
-          <div class="welcome-signal">
-            <svg viewBox="0 0 156 52" focusable="false" aria-hidden="true">
-              <path class="signal-grid" d="M12 42H144M12 28H144M12 14H144"></path>
-              <path class="signal-path muted" d="M12 38C31 29 43 33 59 25C76 16 90 22 107 13C121 6 132 10 144 7"></path>
-              <path class="signal-path live" d="M12 38C31 29 43 33 59 25C76 16 90 22 107 13C121 6 132 10 144 7" pathLength="1"></path>
-              <circle class="signal-point one" cx="12" cy="38" r="3"></circle>
-              <circle class="signal-point two" cx="59" cy="25" r="3"></circle>
-              <circle class="signal-point three" cx="107" cy="13" r="3"></circle>
-              <circle class="signal-point four" cx="144" cy="7" r="4"></circle>
-            </svg>
-          </div>
-        </aside>
-
-        <div class="welcome-actions">
-          <button class="button primary" type="button" data-welcome-close>
-            Enter portfolio
-            <svg class="icon"><use href="#icon-arrow-right"></use></svg>
-          </button>
-          <a class="button quiet" href="#projects" data-welcome-close>
-            <svg class="icon"><use href="#icon-grid"></use></svg>
-            View work
-          </a>
-        </div>
-      </div>
-    </div>
-
+  <body>
     <header class="site-header" data-header>
-      <a class="brand" href="#top" aria-label="Go to top">
-        <span class="brand-mark" aria-hidden="true">D</span>
-        <span>Dinh Portfolio</span>
-      </a>
-
-      <nav class="desktop-nav" aria-label="Primary navigation">
-        <a href="#fit">Fit</a>
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#process">Process</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="header-actions">
-        <button class="icon-button" type="button" data-theme-toggle aria-label="Toggle theme" title="Toggle theme">
-          <svg class="icon"><use href="#icon-theme"></use></svg>
-        </button>
-        <button class="icon-button mobile-menu-button" type="button" data-menu-toggle aria-label="Open menu" title="Menu">
-          <svg class="icon"><use href="#icon-menu"></use></svg>
-        </button>
+      <div class="container nav-wrap">
+        <a class="brand" href="#hero" aria-label="Dean Phạm Blog">
+          <span class="brand-dot" aria-hidden="true"></span>
+          <span>Dean Phạm</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Điều hướng chính">
+          <a href="#journey">Hành Trình</a>
+          <a href="#finance-personal">Tài Chính</a>
+          <a href="#portfolio">Danh Mục</a>
+          <a href="#philosophy">Triết Lý</a>
+          <a href="#repair">Sửa Chữa</a>
+          <a href="#news">Tin Tức</a>
+        </nav>
+        <div class="nav-actions">
+          <a class="contact-cta" href="mailto:dinhpham.fin@gmail.com"><i class="ti ti-mail"></i>Liên hệ</a>
+          <button class="menu-toggle" type="button" data-menu-toggle aria-label="Mở menu"><i class="ti ti-menu-2"></i></button>
+        </div>
       </div>
     </header>
 
-    <nav class="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
-      <a href="#fit">Fit</a>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
+    <nav class="mobile-nav" data-mobile-nav aria-label="Điều hướng di động">
+      <a href="#journey">Hành Trình</a>
+      <a href="#finance-personal">Tài Chính</a>
+      <a href="#portfolio">Danh Mục</a>
+      <a href="#philosophy">Triết Lý</a>
+      <a href="#repair">Sửa Chữa</a>
+      <a href="#news">Tin Tức</a>
+      <a href="mailto:dinhpham.fin@gmail.com">Liên hệ</a>
     </nav>
 
-    <main id="top">
-      <section class="hero" aria-labelledby="hero-title">
-        <picture class="hero-media">
-          <source srcset="assets/hero-workspace-760.webp" media="(max-width: 640px)" type="image/webp">
-          <source srcset="assets/hero-workspace-1400.webp" type="image/webp">
-          <img
-            src="assets/hero-workspace.png"
-            width="1672"
-            height="941"
-            decoding="async"
-            fetchpriority="high"
-            alt="Modern desk with laptop, code blocks, and interface sketches"
-          >
-        </picture>
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-          <div class="hero-grid">
-            <div class="hero-body">
-              <p class="eyebrow">Dynamic Web Portfolio</p>
-              <h1 id="hero-title">Clean web experiences that feel fast, clear, and easy to trust.</h1>
-              <p class="hero-copy">
-                A frontend-focused portfolio for Dinh, shaped around responsive layouts, interface polish, and
-                small dynamic details that make a static GitHub Pages site feel alive.
-              </p>
-              <div class="brand-thesis" aria-label="Portfolio values">
-                <span>Simple structure.</span>
-                <span>Useful motion.</span>
-                <span>Responsive by default.</span>
-              </div>
-              <div class="hero-actions">
-                <a class="button primary" href="#projects">
-                  <svg class="icon"><use href="#icon-rocket"></use></svg>
-                  View projects
-                </a>
-                <a class="button secondary" href="#fit">
-                  <svg class="icon"><use href="#icon-sparkles"></use></svg>
-                  Review fit
-                </a>
-                <a class="button secondary" href="#contact">
-                  <svg class="icon"><use href="#icon-mail"></use></svg>
-                  Contact
-                </a>
-              </div>
+    <main>
+      <section class="hero" id="hero">
+        <div class="container hero-grid">
+          <div data-reveal>
+            <p class="eyebrow">Dean Phạm Blog</p>
+            <h1>Xây dựng cuộc đời như một công trình.</h1>
+            <p class="hero-copy">Từ Việt Nam ra thế giới - qua học tập, tài chính, đầu tư và những bài học sống thật mà tôi muốn chia sẻ lại cho thế hệ tiếp theo.</p>
+            <div class="hero-actions">
+              <a class="btn primary" href="#journey"><i class="ti ti-route"></i>Khám phá hành trình</a>
+              <a class="btn secondary" href="#portfolio"><i class="ti ti-folders"></i>Xem danh mục</a>
             </div>
-
-            <aside class="hero-command-card" data-command-center aria-label="Interactive portfolio focus card">
-              <div class="command-card-header">
-                <span>Live focus</span>
-                <strong>What this portfolio shows</strong>
-              </div>
-              <div class="command-tabs" role="list" aria-label="Portfolio focus areas">
-                <button
-                  class="command-tab is-active"
-                  type="button"
-                  data-title="Responsive UI"
-                  data-kpi="Mobile to desktop"
-                  data-copy="Layouts are built to reflow cleanly across phones, tablets, laptops, and wide screens without text collisions."
-                  data-bars="48,62,74,88,82"
-                  aria-pressed="true"
-                >
-                  Layout
-                </button>
-                <button
-                  class="command-tab"
-                  type="button"
-                  data-title="Dynamic details"
-                  data-kpi="Polished interaction"
-                  data-copy="Small motion details guide attention, keep the review calm, and make the portfolio feel intentional from the first screen."
-                  data-bars="35,56,72,68,92"
-                  aria-pressed="false"
-                >
-                  Motion
-                </button>
-                <button
-                  class="command-tab"
-                  type="button"
-                  data-title="Frontend projects"
-                  data-kpi="Web and UI only"
-                  data-copy="The project section stays focused on websites, landing pages, UI prototypes, and app surfaces."
-                  data-bars="42,52,66,79,86"
-                  aria-pressed="false"
-                >
-                  Work
-                </button>
-                <button
-                  class="command-tab"
-                  type="button"
-                  data-title="GitHub Pages ready"
-                  data-kpi="Static deploy"
-                  data-copy="The portfolio is still plain HTML, CSS, and JavaScript, so it deploys quickly from the main branch."
-                  data-bars="52,64,76,84,94"
-                  aria-pressed="false"
-                >
-                  Deploy
-                </button>
-              </div>
-              <div class="command-readout" aria-live="polite">
-                <span data-command-kpi>Mobile to desktop</span>
-                <h2 data-command-title>Responsive UI</h2>
-                <p data-command-copy>
-                  Layouts are built to reflow cleanly across phones, tablets, laptops, and wide screens without text collisions.
-                </p>
-                <div class="command-sparkline" data-command-sparkline aria-hidden="true">
-                  <span style="--bar-height: 48%"></span>
-                  <span style="--bar-height: 62%"></span>
-                  <span style="--bar-height: 74%"></span>
-                  <span style="--bar-height: 88%"></span>
-                  <span style="--bar-height: 82%"></span>
-                </div>
-              </div>
-              <div class="command-metrics" aria-label="Portfolio proof points">
-                <div><span>4</span><p>frontend project slots</p></div>
-                <div><span>Web/UI</span><p>project focus only</p></div>
-                <div><span>Static</span><p>GitHub Pages build</p></div>
-              </div>
-            </aside>
-          </div>
-        </div>
-        <a class="hero-scroll-indicator" href="#fit" aria-label="Scroll to fit section">
-          <svg class="icon"><use href="#icon-chevron-down"></use></svg>
-        </a>
-      </section>
-
-      <section class="snapshot-section" id="fit" aria-label="Portfolio fit">
-        <div class="section-inner snapshot-panel">
-          <div class="snapshot-lead">
-            <p class="section-kicker">30-second fit</p>
-            <h2>Built for frontend and UI opportunities.</h2>
-            <p>
-              This version keeps Dinh's work focused on practical web interfaces, responsive layouts, and polished public
-              presentation for frontend or UI opportunities.
-            </p>
-          </div>
-          <div class="snapshot-tools" data-fit-lens>
-            <div class="fit-lens-tabs" role="list" aria-label="Review lens">
-              <button
-                class="fit-lens-tab is-active"
-                type="button"
-                data-title="Fast scan for frontend reviewers"
-                data-tag="Frontend / UI"
-                data-copy="The first screens show role focus, skill stack, proof cards, and project filters without forcing visitors through long case-study pages."
-                data-link="#projects"
-                data-link-label="See projects"
-                aria-pressed="true"
-              >
-                Role
-              </button>
-              <button
-                class="fit-lens-tab"
-                type="button"
-                data-title="Motion that supports the page"
-                data-tag="Welcome + reveal"
-                data-copy="The first impression and section transitions feel polished while staying calm, readable, and easy to scan."
-                data-link="#process"
-                data-link-label="See process"
-                aria-pressed="false"
-              >
-                Motion
-              </button>
-              <button
-                class="fit-lens-tab"
-                type="button"
-                data-title="Lightweight public portfolio"
-                data-tag="GitHub Pages"
-                data-copy="The site is built for a clean public handoff, fast loading, and simple future edits as Dinh adds real links and project proof."
-                data-link="#contact"
-                data-link-label="Contact"
-                aria-pressed="false"
-              >
-                Deploy
-              </button>
+            <div class="hero-stats" aria-label="Thống kê nhanh">
+              <article class="stat-card"><strong>4+ năm</strong><span>Hành trình học tập và tự xây nền tảng</span></article>
+              <article class="stat-card"><strong>12+ dự án</strong><span>Đã hoàn thành qua tài chính, vận hành, công nghệ</span></article>
+              <article class="stat-card"><strong>3 lĩnh vực</strong><span>Tài chính · Vận hành · Công nghệ</span></article>
             </div>
-            <article class="fit-lens-readout">
-              <span data-fit-tag>Frontend / UI</span>
-              <h3 data-fit-title>Fast scan for frontend reviewers</h3>
-              <p data-fit-copy>
-                The first screens show role focus, skill stack, proof cards, and project filters without forcing visitors
-                through long case-study pages.
-              </p>
-              <a class="button quiet" href="#projects" data-fit-link>See projects</a>
-            </article>
+          </div>
+          <div class="hero-visual" aria-hidden="true" data-reveal>
+            <div class="ring-system"></div>
+            <div class="visual-note"><span>Thesis</span><strong>Không phô trương. Chỉ xây từng viên gạch cho đúng.</strong></div>
           </div>
         </div>
       </section>
 
-      <section class="section about-section" id="about" aria-labelledby="about-title">
-        <div class="section-inner two-column">
-          <div>
-            <p class="section-kicker">About</p>
-            <h2 id="about-title">A portfolio system that can grow with Dinh's real work.</h2>
-            <p>
-              The copy is intentionally flexible until Dinh's real details are added. The structure is ready for a short
-              bio, stronger project links, a resume, and contact channels without changing the whole page.
-            </p>
+      <section class="section alt" id="journey">
+        <div class="container">
+          <div class="section-head" data-reveal>
+            <div><p class="eyebrow">Hành trình</p><h2>Học không phải để có bằng - học để sống khác đi.</h2></div>
+            <p class="section-lede">Một timeline chưa phải bản tự truyện hoàn chỉnh. Nó là khung để Dean điền những cột mốc thật, quyết định thật và bài học thật.</p>
           </div>
-          <div class="skill-stack" aria-label="Skill stack">
-            <article class="skill-group">
-              <h3>Core web</h3>
-              <div class="chip-list">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-                <span>Responsive Layout</span>
-              </div>
+          <div class="timeline">
+            <article class="timeline-card is-active" data-reveal>
+              <div class="timeline-meta"><span class="year">2019</span><h3>Bắt đầu ghi chép nghiêm túc</h3><span class="tag personal">Cá nhân</span></div>
+              <div class="timeline-body"><p><strong>Bối cảnh:</strong> Tôi nhận ra mình không thể chỉ sống bằng cảm hứng ngắn hạn.</p><p><strong>Quyết định:</strong> Ghi lại chi tiêu, thời gian học và các lựa chọn lớn.</p><p><strong>Thử thách:</strong> Kỷ luật nhàm chán hơn rất nhiều so với ý tưởng.</p><p><strong>Bài học:</strong> Điều gì được đo lường thì mới có cơ hội được cải thiện.</p></div>
             </article>
-            <article class="skill-group">
-              <h3>Interface craft</h3>
-              <div class="chip-list">
-                <span>Visual Hierarchy</span>
-                <span>Interaction States</span>
-                <span>Landing Pages</span>
-                <span>Accessibility Basics</span>
-              </div>
+            <article class="timeline-card" data-reveal>
+              <div class="timeline-meta"><span class="year">2021</span><h3>Xây nền tài chính cá nhân</h3><span class="tag">Tài chính</span></div>
+              <div class="timeline-body"><p><strong>Bối cảnh:</strong> Những quyết định tiền bạc nhỏ bắt đầu tạo ra hệ quả dài hạn.</p><p><strong>Quyết định:</strong> Tạo quỹ khẩn cấp, học đầu tư cơ bản và tránh vay tiêu dùng.</p><p><strong>Thử thách:</strong> Cám dỗ tiêu tiền để chứng minh bản thân.</p><p><strong>Bài học:</strong> Tự do tài chính bắt đầu bằng khả năng nói không.</p></div>
             </article>
-            <article class="skill-group">
-              <h3>Delivery</h3>
-              <div class="chip-list">
-                <span>GitHub Pages</span>
-                <span>Static Sites</span>
-                <span>Clean Assets</span>
-                <span>Fast Handoff</span>
-              </div>
+            <article class="timeline-card" data-reveal>
+              <div class="timeline-meta"><span class="year">2023</span><h3>Chạm vào vận hành thực tế</h3><span class="tag operations">Vận hành</span></div>
+              <div class="timeline-body"><p><strong>Bối cảnh:</strong> Số liệu chỉ có ý nghĩa khi nó giúp con người ra quyết định tốt hơn.</p><p><strong>Quyết định:</strong> Kết nối tài chính với quy trình, báo cáo và hành động hằng tuần.</p><p><strong>Thử thách:</strong> Dữ liệu rời rạc, người dùng bận, vấn đề luôn mơ hồ.</p><p><strong>Bài học:</strong> Một dashboard tốt phải làm cho câu hỏi khó trở nên rõ hơn.</p></div>
             </article>
+          </div>
+          <div class="section-actions" data-reveal><a class="btn secondary" href="#philosophy">Đọc thêm về hành trình <i class="ti ti-arrow-right"></i></a></div>
+        </div>
+      </section>
+
+      <section class="section" id="finance-personal">
+        <div class="container finance-grid">
+          <div data-reveal>
+            <p class="eyebrow">Tài sản cá nhân</p>
+            <h2>Tiền là công cụ - không phải mục tiêu.</h2>
+            <p class="section-lede">Tôi không theo đuổi sự giàu có - tôi xây dựng sự tự do. Khi bạn không cần tiền đến mức tuyệt vọng, bạn đưa ra quyết định tốt hơn.</p>
+            <ol class="principles"><li><span>01</span>Review chi tiêu tuần đầu của tháng.</li><li><span>02</span>Tái cân bằng danh mục đầu tư.</li><li><span>03</span>Đọc một báo cáo tài chính công ty đang theo dõi.</li><li><span>04</span>Ghi lại một bài học tiền bạc trong tháng.</li><li><span>05</span>Kiểm tra mục tiêu 5 năm có còn đúng hướng không.</li></ol>
+          </div>
+          <aside class="dashboard surface-card" data-reveal>
+            <div class="dashboard-top"><strong>Dashboard tài chính</strong><div class="tab-list" role="tablist" aria-label="Bảng tài chính"><button class="tab-button is-active" type="button" data-tab="personal" role="tab" aria-selected="true">Cá nhân</button><button class="tab-button" type="button" data-tab="growth" role="tab" aria-selected="false">Tăng trưởng</button></div></div>
+            <div class="tab-panel is-active" data-panel="personal" role="tabpanel">
+              <div class="progress-row"><header><span>Quỹ khẩn cấp</span><strong>86%</strong></header><div class="track"><span style="--value: 86%"></span></div></div>
+              <div class="progress-row"><header><span>Cổ phiếu / ETF</span><strong>62%</strong></header><div class="track"><span style="--value: 62%"></span></div></div>
+              <div class="progress-row"><header><span>Tích lũy bất động sản</span><strong>38%</strong></header><div class="track"><span style="--value: 38%"></span></div></div>
+              <div class="progress-row"><header><span>Bảo hiểm sức khỏe</span><strong>74%</strong></header><div class="track"><span style="--value: 74%"></span></div></div>
+              <div class="progress-row"><header><span>Quỹ học tập</span><strong>91%</strong></header><div class="track"><span style="--value: 91%"></span></div></div>
+            </div>
+            <div class="tab-panel" data-panel="growth" role="tabpanel">
+              <div class="mini-chart" aria-label="Tăng trưởng tài sản ròng 2019-2025"><span class="bar" style="--h: 42px" data-year="2019" data-tip="2019: nền tảng đầu tiên"></span><span class="bar" style="--h: 58px" data-year="2020" data-tip="2020: +18%"></span><span class="bar" style="--h: 76px" data-year="2021" data-tip="2021: +24%"></span><span class="bar" style="--h: 88px" data-year="2022" data-tip="2022: +16%"></span><span class="bar" style="--h: 112px" data-year="2023" data-tip="2023: +31%"></span><span class="bar" style="--h: 132px" data-year="2024" data-tip="2024: +22%"></span><span class="bar" style="--h: 150px" data-year="2025" data-tip="2025: đang cập nhật"></span></div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section alt" id="finance-business">
+        <div class="container">
+          <div class="section-head" data-reveal><div><p class="eyebrow">Doanh nghiệp</p><h2>Doanh nghiệp lành mạnh bắt đầu từ số liệu minh bạch.</h2></div><p class="section-lede">Những framework đơn giản để chủ doanh nghiệp nhỏ nhìn rõ dòng tiền, chi phí, báo cáo và rủi ro trước khi mọi thứ trở nên quá muộn.</p></div>
+          <div class="framework-grid">
+            <article class="framework-card" data-reveal><i class="ti ti-arrows-exchange"></i><h3>Quản lý dòng tiền</h3><p>Phân biệt dòng tiền hoạt động, đầu tư và tài chính để không nhầm lợi nhuận kế toán với sức khỏe thật.</p></article>
+            <article class="framework-card" data-reveal><i class="ti ti-chart-pie"></i><h3>Cấu trúc chi phí</h3><p>Tách fixed cost và variable cost, tính điểm hòa vốn và biết tháng nào cần siết lại vận hành.</p></article>
+            <article class="framework-card" data-reveal><i class="ti ti-calendar-stats"></i><h3>Báo cáo nhanh hằng tuần</h3><p>Một mẫu báo cáo A4 cho SME: doanh thu, biên lợi nhuận, cash runway và việc cần xử lý ngay.</p></article>
+            <article class="framework-card" data-reveal><i class="ti ti-shield-check"></i><h3>Dự phòng rủi ro</h3><p>Quy tắc 20% dự phòng, scenario planning và danh sách rủi ro cần xem lại mỗi tháng.</p></article>
+          </div>
+          <div class="business-banner" data-reveal><p>Bạn đang quản lý tài chính doanh nghiệp nhưng không chắc mình đang làm đúng? Tôi có thể giúp.</p><a href="mailto:dinhpham.fin@gmail.com">Liên hệ tư vấn <i class="ti ti-arrow-right"></i></a></div>
+        </div>
+      </section>
+
+      <section class="section" id="portfolio">
+        <div class="container">
+          <div class="section-head" data-reveal><div><p class="eyebrow">Danh mục</p><h2>Mỗi dự án là một bài học - không phải chỉ là thành tích.</h2></div><p class="section-lede">Accordion này được thiết kế để Dean thêm case study thật: vấn đề, phân tích, giải pháp, kết quả và bài học sau cùng.</p></div>
+          <div class="portfolio-toolbar" data-reveal><div class="filter-list" aria-label="Bộ lọc dự án"><button class="filter-button is-active" type="button" data-filter="all">Tất cả</button><button class="filter-button" type="button" data-filter="finance">Tài chính</button><button class="filter-button" type="button" data-filter="operations">Vận hành</button><button class="filter-button" type="button" data-filter="personal">Cá nhân</button><button class="filter-button" type="button" data-filter="business">Doanh nghiệp</button></div></div>
+          <div class="portfolio-list">
+            <article class="portfolio-item is-open" data-category="finance business" data-reveal><button class="portfolio-summary" type="button" aria-expanded="true"><span class="tag">Tài chính</span><span class="portfolio-title"><strong>Weekly SME finance cockpit</strong><span>6 tuần · độ phức tạp 4/5 · giảm thời gian đọc báo cáo xuống một buổi họp</span></span><i class="ti ti-player-play"></i></button><div class="portfolio-details"><div class="case-flow"><div class="case-step"><span>PROBLEM</span><p>Số liệu rời rạc, chủ doanh nghiệp không biết tuần này cần ưu tiên gì.</p></div><div class="case-step"><span>ANALYSIS</span><p>Chuẩn hóa doanh thu, chi phí, dòng tiền và khoản phải thu.</p></div><div class="case-step"><span>SOLUTION</span><p>Tạo một cockpit A4: cash runway, margin, nợ, việc cần làm.</p></div><div class="case-step"><span>RESULT</span><p>Cuộc họp tài chính ngắn hơn, quyết định rõ hơn.</p></div><div class="case-step"><span>LESSON</span><p>Dashboard tốt phải ép người xem chọn hành động.</p></div></div></div></article>
+            <article class="portfolio-item" data-category="operations business" data-reveal><button class="portfolio-summary" type="button" aria-expanded="false"><span class="tag operations">Vận hành</span><span class="portfolio-title"><strong>Cost structure review</strong><span>4 tuần · độ phức tạp 3/5 · tìm lại điểm hòa vốn thật</span></span><i class="ti ti-player-play"></i></button><div class="portfolio-details"><div class="case-flow"><div class="case-step"><span>PROBLEM</span><p>Chi phí tăng nhưng đội ngũ không biết phần nào là cố định.</p></div><div class="case-step"><span>ANALYSIS</span><p>Nhóm từng khoản theo fixed, variable, one-off và hidden cost.</p></div><div class="case-step"><span>SOLUTION</span><p>Tạo mô hình hòa vốn theo kịch bản doanh thu.</p></div><div class="case-step"><span>RESULT</span><p>Ưu tiên cắt giảm rõ hơn, tránh cắt nhầm thứ tạo doanh thu.</p></div><div class="case-step"><span>LESSON</span><p>Không phải chi phí nào cũng xấu; chi phí mù mới nguy hiểm.</p></div></div></div></article>
+            <article class="portfolio-item" data-category="personal finance" data-reveal><button class="portfolio-summary" type="button" aria-expanded="false"><span class="tag personal">Cá nhân</span><span class="portfolio-title"><strong>Personal net-worth tracker</strong><span>2 tuần · độ phức tạp 2/5 · biến cảm giác tài chính thành số liệu</span></span><i class="ti ti-player-play"></i></button><div class="portfolio-details"><div class="case-flow"><div class="case-step"><span>PROBLEM</span><p>Không biết tài sản ròng thật tăng hay chỉ là cảm giác.</p></div><div class="case-step"><span>ANALYSIS</span><p>Tách tài sản thanh khoản, đầu tư, nợ và quỹ dự phòng.</p></div><div class="case-step"><span>SOLUTION</span><p>Tạo tracker tháng với biểu đồ tăng trưởng và ghi chú quyết định.</p></div><div class="case-step"><span>RESULT</span><p>Dễ nhìn ra thói quen nào đang kéo mục tiêu đi lệch.</p></div><div class="case-step"><span>LESSON</span><p>Con số không thay đổi đời sống nếu không đi kèm hành vi.</p></div></div></div></article>
           </div>
         </div>
       </section>
 
-      <section class="section projects-section" id="projects" aria-labelledby="projects-title">
-        <div class="section-inner">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Selected work</p>
-              <h2 id="projects-title">Frontend projects only, filtered by the kind of surface.</h2>
-            </div>
-            <div class="project-filter" role="list" aria-label="Project filters">
-              <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
-              <button class="filter-button" type="button" data-filter="website" aria-pressed="false">Website</button>
-              <button class="filter-button" type="button" data-filter="interface" aria-pressed="false">Interface</button>
-              <button class="filter-button" type="button" data-filter="landing" aria-pressed="false">Landing</button>
-            </div>
+      <section class="section alt" id="philosophy">
+        <div class="container">
+          <div class="section-head" data-reveal><div><p class="eyebrow">Góc nhìn</p><h2>Những điều tôi tin - viết như thể không ai đọc.</h2></div><p class="section-lede">Những đoạn dưới là placeholder có chủ đích. Dean có thể thay bằng giọng văn thật của mình khi nội dung đã chín.</p></div>
+          <div class="philosophy-stack">
+            <article class="thought" data-reveal><span>Về thất bại</span><p>"Con người ta thường sợ thất bại hơn là thiếu nỗ lực, nhưng chính sự thiếu nỗ lực mới âm thầm lấy mất cuộc đời."</p></article>
+            <article class="thought" data-reveal><span>Về tự do tài chính</span><p>"Tài chính không phải là số trên tài khoản - đó là khả năng chọn lựa mà không phải cúi đầu trước nỗi sợ."</p></article>
+            <article class="thought" data-reveal><span>Về xã hội và địa vị</span><p>"Xã hội hiện đại dạy chúng ta theo đuổi địa vị, nhưng người vững vàng hơn thường là người biết mình không cần diễn."</p></article>
+            <article class="thought" data-reveal><span>Về trách nhiệm đàn ông</span><p>"Người đàn ông trưởng thành không cần được công nhận để làm đúng. Anh ta làm đúng vì có những người đang dựa vào mình."</p></article>
+            <article class="thought" data-reveal><span>Về học tập</span><p>"Học không có hồi kết - chỉ có người ngừng học rồi tự gọi sự mệt mỏi của mình là thực tế."</p></article>
           </div>
-
-          <div class="project-grid" data-project-grid>
-            <article class="project-card" data-category="website">
-              <div class="project-topline">
-                <span>Website</span>
-                <svg class="icon"><use href="#icon-globe"></use></svg>
-              </div>
-              <h3>Personal portfolio system</h3>
-              <p>
-                A personal website that introduces skills, project direction, and contact links in one polished flow.
-              </p>
-              <div class="product-tags">
-                <span>HTML</span>
-                <span>CSS</span>
-                <span>JavaScript</span>
-              </div>
-            </article>
-
-            <article class="project-card" data-category="landing">
-              <div class="project-topline">
-                <span>Landing</span>
-                <svg class="icon"><use href="#icon-send"></use></svg>
-              </div>
-              <h3>Product landing page</h3>
-              <p>
-                A conversion-focused page pattern with strong first-screen messaging, clear CTAs, and compact proof sections.
-              </p>
-              <div class="product-tags">
-                <span>Hero</span>
-                <span>CTA</span>
-                <span>Responsive</span>
-              </div>
-            </article>
-
-            <article class="project-card" data-category="interface">
-              <div class="project-topline">
-                <span>Interface</span>
-                <svg class="icon"><use href="#icon-panel"></use></svg>
-              </div>
-              <h3>Task board prototype</h3>
-              <p>
-                A clean interface concept for viewing tasks, priorities, status, and action states in a compact dashboard layout.
-              </p>
-              <div class="product-tags">
-                <span>UI</span>
-                <span>Cards</span>
-                <span>States</span>
-              </div>
-            </article>
-
-            <article class="project-card" data-category="interface">
-              <div class="project-topline">
-                <span>Interface</span>
-                <svg class="icon"><use href="#icon-bag"></use></svg>
-              </div>
-              <h3>Product grid experience</h3>
-              <p>
-                An ecommerce-style grid with predictable spacing, scannable product cards, and mobile-first layout behavior.
-              </p>
-              <div class="product-tags">
-                <span>Grid</span>
-                <span>Cards</span>
-                <span>Mobile</span>
-              </div>
-            </article>
-          </div>
+          <div class="section-actions" data-reveal><a class="btn secondary" href="#news">Đọc thêm bài viết <i class="ti ti-arrow-right"></i></a></div>
         </div>
       </section>
 
-      <section class="section process-section" id="process" aria-labelledby="process-title">
-        <div class="section-inner">
-          <div class="section-heading">
-            <div>
-              <p class="section-kicker">Review path</p>
-              <h2 id="process-title">A quick path from first impression to project proof.</h2>
-            </div>
+      <section class="section" id="repair">
+        <div class="container">
+          <div class="section-head" data-reveal><div><p class="eyebrow">Kỹ năng đàn ông</p><h2>Một người đàn ông nên biết tự lo cho ngôi nhà của mình.</h2></div><p class="section-lede">Những video đơn giản, bất kỳ ai cũng làm được - từ thanh thiếu niên 16 tuổi đến người 40 tuổi chưa từng cầm cờ lê.</p></div>
+          <div class="video-grid">
+            <article class="video-card" data-reveal><div class="thumb"><span class="difficulty">Dễ</span><span class="duration">15:30</span><span class="play"><i class="ti ti-player-play-filled"></i></span></div><div class="video-body"><h3>Thay vòi nước bị chảy trong 15 phút</h3><p>Các bước kiểm tra ron, khóa nước và thay vòi an toàn.</p><div class="skill-tags"><span>Nước</span><span>Nhà bếp</span></div></div></article>
+            <article class="video-card" data-reveal><div class="thumb"><span class="difficulty">Trung bình</span><span class="duration">12:00</span><span class="play"><i class="ti ti-player-play-filled"></i></span></div><div class="video-body"><h3>Sửa ổ cắm điện an toàn</h3><p>Biết lúc nào tự làm được và lúc nào phải gọi thợ.</p><div class="skill-tags"><span>Điện</span><span>An toàn</span></div></div></article>
+            <article class="video-card" data-reveal><div class="thumb"><span class="difficulty">Dễ</span><span class="duration">22:15</span><span class="play"><i class="ti ti-player-play-filled"></i></span></div><div class="video-body"><h3>Sơn lại tường nhà - tiết kiệm 70%</h3><p>Chuẩn bị bề mặt, che mép và sơn lớp phủ đều tay.</p><div class="skill-tags"><span>Sơn</span><span>Hoàn thiện</span></div></div></article>
+            <article class="video-card" data-reveal><div class="thumb"><span class="difficulty">Dễ</span><span class="duration">18:40</span><span class="play"><i class="ti ti-player-play-filled"></i></span></div><div class="video-body"><h3>Lắp kệ tường chắc không bao giờ rơi</h3><p>Chọn tắc kê, đo khoảng cách và kiểm tra tải trọng.</p><div class="skill-tags"><span>Mộc</span><span>Cơ khí</span></div></div></article>
           </div>
-          <div class="process-flow" aria-label="Portfolio review path">
-            <article class="flow-step">
-              <span>01</span>
-              <strong>First impression</strong>
-              <p>Open with a focused role signal and a polished personal mark.</p>
-            </article>
-            <article class="flow-step">
-              <span>02</span>
-              <strong>Fit</strong>
-              <p>Summarize why the portfolio matches frontend and UI work.</p>
-            </article>
-            <article class="flow-step">
-              <span>03</span>
-              <strong>Work</strong>
-              <p>Show website, interface, and landing page examples only.</p>
-            </article>
-            <article class="flow-step">
-              <span>04</span>
-              <strong>Next step</strong>
-              <p>Give recruiters or collaborators clear contact paths.</p>
-            </article>
-          </div>
+          <div class="repair-banner" data-reveal><p>Bạn có kỹ năng muốn chia sẻ? Tôi luôn tìm kiếm những người đàn ông thực tế để cộng tác.</p><a href="mailto:dinhpham.fin@gmail.com">Liên hệ Dean <i class="ti ti-arrow-right"></i></a></div>
         </div>
       </section>
 
-      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
-        <div class="section-inner contact-layout">
-          <div>
-            <p class="section-kicker">Contact</p>
-            <h2 id="contact-title">Ready for real links, resume, and project repos.</h2>
-            <p>
-              Replace the placeholders below with Dinh's real email, GitHub, LinkedIn, and resume once the final details
-              are available.
-            </p>
-          </div>
-          <div class="contact-actions" aria-label="Contact actions">
-            <a class="contact-link" href="mailto:dinh@example.com">
-              <svg class="icon"><use href="#icon-mail"></use></svg>
-              dinh@example.com
-            </a>
-            <a class="contact-link" href="https://github.com/DEANPHAM117" target="_blank" rel="noopener">
-              <svg class="icon"><use href="#icon-code"></use></svg>
-              GitHub
-            </a>
-            <a class="contact-link" href="#" aria-label="LinkedIn placeholder">
-              <svg class="icon"><use href="#icon-external"></use></svg>
-              LinkedIn
-            </a>
-            <a class="contact-link" href="https://deanpham117.github.io/Portfolio/" target="_blank" rel="noopener">
-              <svg class="icon"><use href="#icon-link"></use></svg>
-              Live portfolio
-            </a>
-          </div>
+      <section class="section alt" id="news">
+        <div class="container">
+          <div class="section-head" data-reveal><div><p class="eyebrow">Cập nhật hằng ngày</p><h2>Tin công nghệ hôm nay - tôi đọc để bạn không bỏ lỡ.</h2></div><p class="section-lede">Feed này có sẵn fallback hardcode cho GitHub Pages. Khi có backend/API riêng, chỉ cần gán endpoint vào <code>window.DEAN_NEWS_ENDPOINT</code>.</p></div>
+          <div class="news-panel" data-reveal><div class="news-header"><p class="timestamp" data-news-timestamp>Cập nhật lần cuối: đang tải...</p><button class="btn secondary" type="button" data-refresh-news><i class="ti ti-refresh"></i>Tải lại tin mới</button></div><div class="news-list" data-news-list aria-live="polite"></div></div>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <span>Dinh</span>
-      <span>Dynamic frontend portfolio built for GitHub Pages.</span>
+    <footer class="site-footer" id="contact">
+      <div class="container footer-grid">
+        <div><h2>Dean Phạm</h2><p>Xây dựng cuộc đời như một công trình.</p><p>Một blog cá nhân về học tập, tài chính, vận hành, công nghệ và những bài học sống thật.</p></div>
+        <div><h3>Liên kết nhanh</h3><div class="footer-links"><a href="#journey">Hành trình học tập</a><a href="#finance-personal">Tài sản cá nhân</a><a href="#finance-business">Tài chính doanh nghiệp</a><a href="#portfolio">Danh mục dự án</a><a href="#philosophy">Triết lý sống</a><a href="#repair">Kỹ năng thực tế</a><a href="#news">Tin công nghệ</a></div></div>
+        <div><h3>Liên hệ</h3><div class="contact-lines"><a href="mailto:dinhpham.fin@gmail.com"><i class="ti ti-mail"></i> dinhpham.fin@gmail.com</a><a href="tel:0888052549"><i class="ti ti-phone"></i> 0888 052 549</a><p>Tôi đọc mọi email - dù có thể trả lời chậm.</p></div></div>
+      </div>
+      <div class="bottom-bar"><div class="container">© 2025 Dean Phạm · Viết bằng sự chân thật</div></div>
     </footer>
 
-    <script src="script.js" defer></script>
+    <script>
+      const header = document.querySelector("[data-header]");
+      const menuToggle = document.querySelector("[data-menu-toggle]");
+      const mobileNav = document.querySelector("[data-mobile-nav]");
+      const navLinks = document.querySelectorAll('a[href^="#"]');
+      const tabButtons = document.querySelectorAll("[data-tab]");
+      const filterButtons = document.querySelectorAll("[data-filter]");
+      const portfolioItems = document.querySelectorAll(".portfolio-item");
+      const refreshNewsButton = document.querySelector("[data-refresh-news]");
+      const newsList = document.querySelector("[data-news-list]");
+      const newsTimestamp = document.querySelector("[data-news-timestamp]");
+
+      const fallbackNews = [
+        { title: "AI agents bước vào quy trình vận hành doanh nghiệp nhỏ", source: "Tech Brief", category: "AI", summary: "Các công cụ mới tập trung vào tự động hóa tác vụ lặp lại thay vì chỉ tạo nội dung." },
+        { title: "Fintech Đông Nam Á tiếp tục xoay sang lợi nhuận bền vững", source: "Market Notes", category: "FINTECH", summary: "Nhà đầu tư chú ý nhiều hơn đến unit economics và kiểm soát rủi ro tín dụng." },
+        { title: "Startup B2B dùng dữ liệu nội bộ để tạo lợi thế cạnh tranh", source: "Founder Daily", category: "STARTUP", summary: "Dữ liệu vận hành trở thành tài sản chiến lược nếu được làm sạch và khai thác đúng." },
+        { title: "Cloud cost management trở thành kỹ năng bắt buộc của đội tech", source: "Cloud Ledger", category: "CLOUD", summary: "Tối ưu chi phí cloud không còn là việc phụ sau khi sản phẩm đã scale." },
+        { title: "Thiết bị cá nhân tích hợp AI chuyển trọng tâm sang quyền riêng tư", source: "Device Watch", category: "DEVICE", summary: "Các hãng nhấn mạnh xử lý on-device để giảm rủi ro dữ liệu cá nhân." },
+        { title: "Chính sách AI mới yêu cầu minh bạch hơn với nội dung tổng hợp", source: "Policy Radar", category: "POLICY", summary: "Doanh nghiệp cần chuẩn bị quy trình ghi nhãn và kiểm soát đầu ra AI." }
+      ];
+
+      function setHeaderState() {
+        header.classList.toggle("is-scrolled", window.scrollY > 50);
+      }
+
+      function closeMenu() {
+        document.body.classList.remove("menu-open");
+        mobileNav.classList.remove("is-open");
+        menuToggle.setAttribute("aria-label", "Mở menu");
+      }
+
+      function renderNews(items) {
+        const source = Array.isArray(items) && items.length ? items : fallbackNews;
+        newsList.innerHTML = source.map((item) => {
+          const category = String(item.category || "AI").toUpperCase();
+          return `<article class="news-item"><span class="badge ${category.toLowerCase()}">${category}</span><div><h3>${item.title}</h3><p>${item.source} · ${item.summary}</p></div></article>`;
+        }).join("");
+        const now = new Date();
+        newsTimestamp.textContent = `Cập nhật lần cuối: ${now.toLocaleTimeString("vi-VN", { hour: "2-digit", minute: "2-digit" })} ${now.toLocaleDateString("vi-VN")}`;
+      }
+
+      async function loadNews() {
+        refreshNewsButton?.setAttribute("disabled", "true");
+        try {
+          if (window.DEAN_NEWS_ENDPOINT) {
+            const response = await fetch(window.DEAN_NEWS_ENDPOINT, { headers: { accept: "application/json" } });
+            if (!response.ok) throw new Error("News endpoint failed");
+            renderNews(await response.json());
+          } else {
+            renderNews(fallbackNews);
+          }
+        } catch {
+          renderNews(fallbackNews);
+        } finally {
+          refreshNewsButton?.removeAttribute("disabled");
+        }
+      }
+
+      window.addEventListener("scroll", setHeaderState, { passive: true });
+      setHeaderState();
+
+      menuToggle?.addEventListener("click", () => {
+        const isOpen = mobileNav.classList.toggle("is-open");
+        document.body.classList.toggle("menu-open", isOpen);
+        menuToggle.setAttribute("aria-label", isOpen ? "Đóng menu" : "Mở menu");
+      });
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const target = document.querySelector(link.getAttribute("href"));
+          if (!target) return;
+          event.preventDefault();
+          closeMenu();
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+          history.pushState(null, "", link.getAttribute("href"));
+        });
+      });
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const tab = button.dataset.tab;
+          tabButtons.forEach((item) => {
+            item.classList.toggle("is-active", item === button);
+            item.setAttribute("aria-selected", item === button ? "true" : "false");
+          });
+          document.querySelectorAll("[data-panel]").forEach((panel) => {
+            panel.classList.toggle("is-active", panel.dataset.panel === tab);
+          });
+        });
+      });
+
+      filterButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const filter = button.dataset.filter;
+          filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
+          portfolioItems.forEach((item) => {
+            const visible = filter === "all" || item.dataset.category.split(" ").includes(filter);
+            item.hidden = !visible;
+          });
+        });
+      });
+
+      portfolioItems.forEach((item) => {
+        const summary = item.querySelector(".portfolio-summary");
+        summary.addEventListener("click", () => {
+          const isOpen = item.classList.toggle("is-open");
+          summary.setAttribute("aria-expanded", String(isOpen));
+        });
+      });
+
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.14 });
+        document.querySelectorAll("[data-reveal]").forEach((item, index) => {
+          item.style.transitionDelay = `${Math.min(index % 5, 4) * 50}ms`;
+          observer.observe(item);
+        });
+      } else {
+        document.querySelectorAll("[data-reveal]").forEach((item) => item.classList.add("is-visible"));
+      }
+
+      refreshNewsButton?.addEventListener("click", loadNews);
+      loadNews();
+    </script>
   </body>
 </html>
