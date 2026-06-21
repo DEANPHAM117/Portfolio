@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Dinh's personal portfolio website.">
+    <title>Dinh | Portfolio</title>
+    <style>
+      :root {
+        --ink: #11130f;
+        --muted: #5e665f;
+        --paper: #f3f6f5;
+        --panel: #ffffff;
+        --line: #d9e0dc;
+        --teal: #2f7d73;
+        --teal-dark: #1f5b54;
+        --coral: #d76135;
+        --gold: #f1c94a;
+        --shadow: 0 18px 50px rgba(17, 19, 15, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(217, 224, 220, 0.82);
+        background: rgba(243, 246, 245, 0.92);
+        backdrop-filter: blur(14px);
+      }
+
+      .nav {
+        width: min(1180px, calc(100% - 40px));
+        min-height: 68px;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        font-size: 18px;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--ink);
+        color: var(--gold);
+        font-weight: 800;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .nav-links a {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        border-bottom: 2px solid transparent;
+      }
+
+      .nav-links a:hover,
+      .nav-links a:focus-visible {
+        color: var(--ink);
+        border-color: var(--coral);
+        outline: none;
+      }
+
+      .hero {
+        min-height: 82svh;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid var(--line);
+        background:
+          linear-gradient(90deg, rgba(243, 246, 245, 0.97) 0%, rgba(243, 246, 245, 0.9) 42%, rgba(243, 246, 245, 0.24) 74%),
+          url("assets/hero-workspace.png") center right / cover no-repeat;
+      }
+
+      .hero-inner {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 88px 0 78px;
+      }
+
+      .kicker {
+        margin: 0 0 16px;
+        color: var(--teal-dark);
+        font-size: 15px;
+        font-weight: 800;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        max-width: 710px;
+        margin-bottom: 24px;
+        font-size: 70px;
+        line-height: 0.95;
+        font-weight: 800;
+      }
+
+      .hero-copy {
+        max-width: 620px;
+        margin-bottom: 34px;
+        color: var(--muted);
+        font-size: 20px;
+      }
+
+      .actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .btn {
+        min-height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: 1px solid var(--ink);
+        border-radius: 8px;
+        padding: 12px 18px;
+        font-weight: 800;
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
+      }
+
+      .btn-primary {
+        background: var(--ink);
+        color: #ffffff;
+        box-shadow: 0 12px 26px rgba(17, 19, 15, 0.18);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.7);
+        color: var(--ink);
+      }
+
+      .btn:hover,
+      .btn:focus-visible {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow);
+        outline: none;
+      }
+
+      .section {
+        padding: 86px 0;
+      }
+
+      .section-inner {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .section-header {
+        max-width: 690px;
+        margin-bottom: 36px;
+      }
+
+      .section-header h2 {
+        margin-bottom: 12px;
+        font-size: 42px;
+        line-height: 1.05;
+      }
+
+      .section-header p {
+        color: var(--muted);
+        font-size: 18px;
+      }
+
+      .about-layout {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 28px;
+        align-items: start;
+      }
+
+      .panel,
+      .project-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+      }
+
+      .panel {
+        padding: 28px;
+      }
+
+      .panel p:last-child {
+        margin-bottom: 0;
+      }
+
+      .facts {
+        display: grid;
+        gap: 12px;
+      }
+
+      .fact {
+        min-height: 76px;
+        display: grid;
+        align-content: center;
+        border-left: 4px solid var(--teal);
+        padding-left: 18px;
+      }
+
+      .fact strong {
+        display: block;
+        font-size: 28px;
+        line-height: 1;
+      }
+
+      .fact span {
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 22px;
+      }
+
+      .skill {
+        min-height: 36px;
+        display: inline-flex;
+        align-items: center;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f8faf9;
+        padding: 7px 10px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .work {
+        background: #ffffff;
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+      }
+
+      .project-card {
+        min-height: 294px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        overflow: hidden;
+        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+      }
+
+      .project-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(47, 125, 115, 0.42);
+        box-shadow: var(--shadow);
+      }
+
+      .project-accent {
+        height: 9px;
+        background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold));
+      }
+
+      .project-body {
+        padding: 24px;
+      }
+
+      .project-card h3 {
+        margin-bottom: 10px;
+        font-size: 22px;
+        line-height: 1.2;
+      }
+
+      .project-card p {
+        color: var(--muted);
+      }
+
+      .project-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 0 24px 24px;
+      }
+
+      .tag {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 5px 8px;
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .contact-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+      }
+
+      .contact-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .contact-link {
+        min-height: 56px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        padding: 14px 16px;
+        color: var(--muted);
+        font-weight: 800;
+      }
+
+      .contact-link:hover,
+      .contact-link:focus-visible {
+        border-color: var(--teal);
+        color: var(--ink);
+        outline: none;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--line);
+        padding: 24px 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+
+      .footer-inner {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      @media (max-width: 920px) {
+        h1 {
+          font-size: 56px;
+        }
+
+        .hero {
+          background:
+            linear-gradient(90deg, rgba(243, 246, 245, 0.98) 0%, rgba(243, 246, 245, 0.9) 58%, rgba(243, 246, 245, 0.58) 100%),
+            url("assets/hero-workspace.png") center right / cover no-repeat;
+        }
+
+        .about-layout,
+        .contact-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .project-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 640px) {
+        .nav {
+          width: min(100% - 28px, 1180px);
+          min-height: auto;
+          padding: 14px 0;
+          align-items: flex-start;
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .nav-links {
+          width: 100%;
+          gap: 12px;
+          overflow-x: auto;
+          padding-bottom: 4px;
+        }
+
+        .hero {
+          min-height: 78svh;
+        }
+
+        .hero-inner,
+        .section-inner,
+        .footer-inner {
+          width: min(100% - 28px, 1180px);
+        }
+
+        h1 {
+          font-size: 44px;
+          line-height: 1;
+        }
+
+        .hero-copy {
+          font-size: 17px;
+        }
+
+        .section {
+          padding: 62px 0;
+        }
+
+        .section-header h2 {
+          font-size: 34px;
+        }
+
+        .project-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .footer-inner {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- inferred portfolio content: replace role, projects, and contact links with Dinh's real details. -->
+    <header class="site-header">
+      <nav class="nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Dinh portfolio home">
+          <span class="brand-mark">D</span>
+          <span>Dinh</span>
+        </a>
+        <div class="nav-links">
+          <a href="#about">About</a>
+          <a href="#work">Work</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-label="Portfolio introduction">
+        <div class="hero-inner">
+          <p class="kicker">Frontend Developer Portfolio</p>
+          <h1>Clean web interfaces built with care.</h1>
+          <p class="hero-copy">
+            Dinh builds practical, responsive websites with strong structure,
+            thoughtful details, and a simple goal: make the experience easy to use.
+          </p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#work">View projects</a>
+            <a class="btn btn-secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="about">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2>About</h2>
+            <p>
+              A focused portfolio starter for presenting skills, featured work,
+              and contact links in one GitHub Pages friendly page.
+            </p>
+          </div>
+
+          <div class="about-layout">
+            <article class="panel">
+              <p>
+                Dinh is a web builder who likes clean layouts, stable code, and
+                interfaces that feel calm instead of crowded. This section is ready
+                for a short real bio, career goal, or student profile.
+              </p>
+              <p>
+                Replace this copy with Dinh's real story: school, current role,
+                strongest tools, target job, or the kind of projects he wants to
+                be known for.
+              </p>
+              <div class="skills" aria-label="Skills">
+                <span class="skill">HTML</span>
+                <span class="skill">CSS</span>
+                <span class="skill">JavaScript</span>
+                <span class="skill">React</span>
+                <span class="skill">GitHub</span>
+                <span class="skill">Responsive UI</span>
+              </div>
+            </article>
+
+            <aside class="panel facts" aria-label="Portfolio highlights">
+              <div class="fact">
+                <strong>3</strong>
+                <span>Featured project slots</span>
+              </div>
+              <div class="fact">
+                <strong>1</strong>
+                <span>Static page for GitHub Pages</span>
+              </div>
+              <div class="fact">
+                <strong>0</strong>
+                <span>Build tools required</span>
+              </div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section work" id="work">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2>Selected Work</h2>
+            <p>
+              Swap these cards with Dinh's real projects, screenshots, repo links,
+              and short impact notes.
+            </p>
+          </div>
+
+          <div class="project-grid">
+            <article class="project-card">
+              <div class="project-accent"></div>
+              <div class="project-body">
+                <h3>Portfolio Website</h3>
+                <p>
+                  A personal site for introducing experience, skills, projects,
+                  and contact links in a clear single-page format.
+                </p>
+              </div>
+              <div class="project-tags">
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">GitHub Pages</span>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-accent"></div>
+              <div class="project-body">
+                <h3>Dashboard Concept</h3>
+                <p>
+                  A clean dashboard layout for tracking key information with cards,
+                  tables, states, and responsive structure.
+                </p>
+              </div>
+              <div class="project-tags">
+                <span class="tag">UI</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Data</span>
+              </div>
+            </article>
+
+            <article class="project-card">
+              <div class="project-accent"></div>
+              <div class="project-body">
+                <h3>Landing Page Build</h3>
+                <p>
+                  A polished marketing page with a strong first screen, readable
+                  sections, and fast static deployment.
+                </p>
+              </div>
+              <div class="project-tags">
+                <span class="tag">Design</span>
+                <span class="tag">Responsive</span>
+                <span class="tag">Performance</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="section-inner">
+          <div class="section-header">
+            <h2>Contact</h2>
+            <p>
+              Add Dinh's real email, GitHub, LinkedIn, resume link, or Facebook
+              profile here before publishing.
+            </p>
+          </div>
+
+          <div class="contact-layout">
+            <article class="panel">
+              <h3>Open to new projects</h3>
+              <p>
+                Use this area for availability, target position, or a friendly
+                note to recruiters and collaborators.
+              </p>
+            </article>
+            <div class="contact-list" aria-label="Contact links">
+              <a class="contact-link" href="mailto:dinh@example.com">
+                <span>dinh@example.com</span>
+                <span>Email</span>
+              </a>
+              <a class="contact-link" href="#" aria-label="GitHub profile placeholder">
+                <span>github.com/your-username</span>
+                <span>GitHub</span>
+              </a>
+              <a class="contact-link" href="#" aria-label="LinkedIn profile placeholder">
+                <span>linkedin.com/in/your-profile</span>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <span>© <span id="year">2026</span> Dinh. All rights reserved.</span>
+        <span>Built for GitHub Pages.</span>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+  </body>
+</html>
