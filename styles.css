@@ -426,7 +426,10 @@ button {
   gap: 24px;
   padding: 14px clamp(20px, 4vw, 44px);
   color: var(--hero-text);
-  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+  border-bottom: 1px solid rgba(248, 251, 255, 0.12);
+  background: rgba(9, 14, 18, 0.48);
+  backdrop-filter: blur(12px);
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
 
 .site-header.is-scrolled,
@@ -434,9 +437,10 @@ button {
   border-bottom: 1px solid var(--line);
   background: rgba(247, 248, 251, 0.92);
   color: var(--ink);
-  backdrop-filter: blur(14px);
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
 }
 
+:root[data-theme="dark"] .site-header,
 :root[data-theme="dark"] .site-header.is-scrolled,
 :root[data-theme="dark"] .site-header.menu-visible {
   background: rgba(15, 23, 24, 0.9);
@@ -490,9 +494,9 @@ button {
   width: 42px;
   height: 42px;
   place-items: center;
-  border: 1px solid currentColor;
+  border: 1px solid rgba(248, 251, 255, 0.38);
   border-radius: var(--radius);
-  background: transparent;
+  background: rgba(248, 251, 255, 0.08);
   color: inherit;
   cursor: pointer;
 }
@@ -504,6 +508,12 @@ button {
 .site-header.is-scrolled .icon-button:hover,
 .site-header.menu-visible .icon-button:hover {
   background: var(--surface-strong);
+}
+
+.site-header.is-scrolled .icon-button,
+.site-header.menu-visible .icon-button {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.46);
 }
 
 .mobile-menu-button {
@@ -568,6 +578,7 @@ button {
 
 .hero-overlay {
   background:
+    linear-gradient(180deg, rgba(9, 14, 18, 0.72) 0%, rgba(9, 14, 18, 0.36) 28%, rgba(9, 14, 18, 0) 52%),
     linear-gradient(90deg, rgba(9, 14, 18, 0.94) 0%, rgba(9, 14, 18, 0.82) 44%, rgba(9, 14, 18, 0.34) 100%),
     linear-gradient(180deg, rgba(9, 14, 18, 0.26), rgba(9, 14, 18, 0.78));
 }
