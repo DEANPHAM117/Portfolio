@@ -32,6 +32,12 @@
         --shadow: 0 24px 70px rgba(62, 39, 35, 0.12);
         --radius: 8px;
         --max: 1180px;
+        --step--1: clamp(0.82rem, 0.78rem + 0.2vw, 0.94rem);
+        --step-0: clamp(1rem, 0.96rem + 0.2vw, 1.08rem);
+        --step-1: clamp(1.16rem, 1.08rem + 0.45vw, 1.36rem);
+        --step-2: clamp(1.42rem, 1.24rem + 0.95vw, 1.9rem);
+        --step-3: clamp(2.08rem, 1.52rem + 2.85vw, 3.7rem);
+        --step-4: clamp(3.35rem, 2.38rem + 5vw, 5.9rem);
         --display: "Playfair Display", Georgia, serif;
         --body: "Inter", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
         --mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
@@ -54,9 +60,25 @@
         font-family: var(--body);
         font-size: 16px;
         letter-spacing: 0;
+        text-rendering: geometricPrecision;
+        -webkit-font-smoothing: antialiased;
+        font-synthesis: none;
       }
 
-      body.menu-open { overflow: hidden; }
+      body.menu-open,
+      body.welcome-pending,
+      body.welcome-active {
+        overflow: hidden;
+      }
+
+      body.welcome-pending .site-header,
+      body.welcome-pending .mobile-nav,
+      body.welcome-pending main,
+      body.welcome-pending .site-footer {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
 
       a {
         color: inherit;
@@ -74,6 +96,277 @@
       .container {
         width: min(var(--max), calc(100% - 40px));
         margin: 0 auto;
+      }
+
+      .motion-field {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+        pointer-events: none;
+        transform: translate3d(calc(var(--mx, 0) * 1px), calc(var(--my, 0) * 1px), 0);
+        transition: transform 180ms ease-out;
+      }
+
+      .site-header,
+      main,
+      .site-footer {
+        position: relative;
+        z-index: 1;
+      }
+
+      .motion-field::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(45, 106, 79, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(45, 106, 79, 0.045) 1px, transparent 1px);
+        background-size: 64px 64px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 72%);
+        animation: gridDrift 18s linear infinite;
+      }
+
+      .motion-shape {
+        position: absolute;
+        display: block;
+        border: 1px solid rgba(45, 106, 79, 0.22);
+        opacity: 0.7;
+        will-change: transform;
+      }
+
+      .shape-ring {
+        width: 360px;
+        height: 360px;
+        right: -86px;
+        top: 14%;
+        border-radius: 50%;
+        box-shadow:
+          inset 0 0 0 26px rgba(82, 183, 136, 0.05),
+          inset 0 0 0 84px rgba(107, 66, 38, 0.04);
+        animation: rotateSlow 24s linear infinite;
+      }
+
+      .shape-square {
+        width: 118px;
+        height: 118px;
+        left: 7%;
+        top: 64%;
+        transform: rotate(14deg);
+        animation: floatTile 9s ease-in-out infinite;
+      }
+
+      .shape-rail {
+        width: 260px;
+        height: 42px;
+        right: 18%;
+        bottom: 12%;
+        border-left: 0;
+        border-right: 0;
+        transform: rotate(-11deg);
+        animation: railSlide 11s ease-in-out infinite;
+      }
+
+      .shape-pixels {
+        width: 148px;
+        height: 148px;
+        left: 78%;
+        top: 68%;
+        border: 0;
+        background:
+          linear-gradient(var(--forest), var(--forest)) 0 0 / 12px 12px no-repeat,
+          linear-gradient(var(--sage), var(--sage)) 46px 18px / 10px 10px no-repeat,
+          linear-gradient(var(--brown), var(--brown)) 90px 52px / 14px 14px no-repeat,
+          linear-gradient(var(--tan), var(--tan)) 20px 96px / 9px 9px no-repeat;
+        animation: pixelPulse 3.8s ease-in-out infinite;
+      }
+
+      .welcome-gate {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgba(45, 106, 79, 0.92), rgba(62, 39, 35, 0.96)),
+          var(--bark);
+        color: var(--cream);
+        padding: 24px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 320ms ease;
+      }
+
+      .welcome-gate.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .welcome-gate.is-leaving {
+        opacity: 0;
+      }
+
+      .welcome-gate[hidden] {
+        display: none;
+      }
+
+      .welcome-gate::before,
+      .welcome-gate::after {
+        content: "";
+        position: absolute;
+        border: 1px solid rgba(249, 245, 240, 0.16);
+        pointer-events: none;
+      }
+
+      .welcome-gate::before {
+        width: min(76vw, 760px);
+        aspect-ratio: 1;
+        border-radius: 50%;
+        animation: rotateSlow 18s linear infinite;
+      }
+
+      .welcome-gate::after {
+        inset: 9%;
+        background-image:
+          linear-gradient(rgba(249, 245, 240, 0.08) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(249, 245, 240, 0.08) 1px, transparent 1px);
+        background-size: 42px 42px;
+        mask-image: radial-gradient(circle, black 0 42%, transparent 68%);
+        animation: gridDrift 12s linear infinite;
+      }
+
+      .welcome-card {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 0.92fr) minmax(280px, 0.58fr);
+        gap: clamp(24px, 5vw, 62px);
+        width: min(1040px, 100%);
+        border: 1px solid rgba(249, 245, 240, 0.18);
+        border-radius: var(--radius);
+        background: rgba(17, 15, 13, 0.42);
+        box-shadow: 0 40px 120px rgba(0, 0, 0, 0.36);
+        backdrop-filter: blur(20px);
+        padding: clamp(24px, 5vw, 52px);
+      }
+
+      .welcome-kicker {
+        margin: 0 0 14px;
+        color: var(--sage-lt);
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .welcome-card h2 {
+        max-width: 700px;
+        margin: 0;
+        color: var(--cream);
+        font-size: clamp(2.6rem, 6vw, 5.3rem);
+        line-height: 0.96;
+      }
+
+      .welcome-card p {
+        color: rgba(249, 245, 240, 0.78);
+        line-height: 1.72;
+      }
+
+      .welcome-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 28px;
+      }
+
+      .welcome-button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        justify-content: center;
+        gap: 9px;
+        border-radius: var(--radius);
+        cursor: pointer;
+        padding: 0 18px;
+        font-weight: 900;
+      }
+
+      .welcome-button.primary {
+        background: var(--sage-lt);
+        color: var(--bark);
+      }
+
+      .welcome-button.ghost {
+        border: 1px solid rgba(249, 245, 240, 0.24);
+        background: transparent;
+        color: var(--cream);
+      }
+
+      .welcome-terminal {
+        position: relative;
+        display: grid;
+        align-content: start;
+        gap: 13px;
+        min-height: 330px;
+        border: 1px solid rgba(249, 245, 240, 0.18);
+        border-radius: var(--radius);
+        background: rgba(6, 14, 11, 0.54);
+        padding: 18px;
+        overflow: hidden;
+      }
+
+      .welcome-terminal::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 3px;
+        background: linear-gradient(90deg, var(--sage), var(--tan), var(--sage-lt));
+        animation: scanLine 1.6s ease-in-out infinite;
+      }
+
+      .terminal-top {
+        display: flex;
+        gap: 7px;
+      }
+
+      .terminal-top span {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--sage-lt);
+        opacity: 0.75;
+      }
+
+      .code-line {
+        display: flex;
+        gap: 10px;
+        color: rgba(249, 245, 240, 0.78);
+        font-family: var(--mono);
+        font-size: clamp(0.76rem, 1.4vw, 0.88rem);
+      }
+
+      .code-line strong {
+        color: var(--sage-lt);
+      }
+
+      .signal-bars {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 8px;
+        align-items: end;
+        min-height: 88px;
+        margin-top: 12px;
+      }
+
+      .signal-bars span {
+        display: block;
+        height: var(--h);
+        border-radius: 7px 7px 0 0;
+        background: linear-gradient(180deg, var(--sage-lt), var(--sage), var(--tan));
+        animation: barDance 1.8s ease-in-out infinite;
+        animation-delay: var(--d);
       }
 
       .site-header {
@@ -266,15 +559,16 @@
       h1 {
         max-width: 760px;
         margin: 0;
-        font-size: clamp(3rem, 7vw, 5.55rem);
-        line-height: 0.95;
+        font-size: var(--step-4);
+        line-height: 0.98;
+        font-weight: 800;
       }
 
       .hero-copy {
         max-width: 720px;
         margin: 24px 0 0;
         color: rgba(62, 39, 35, 0.74);
-        font-size: clamp(1rem, 1.6vw, 1.2rem);
+        font-size: var(--step-1);
         line-height: 1.78;
       }
 
@@ -343,6 +637,7 @@
           repeating-radial-gradient(circle, transparent 0 11%, rgba(45, 106, 79, 0.16) 11.5% 12.2%, transparent 12.8% 22%),
           conic-gradient(from 140deg, var(--forest), var(--sage), var(--tan), var(--brown), var(--forest));
         box-shadow: 0 34px 90px rgba(45, 106, 79, 0.23);
+        animation: morphRing 10s ease-in-out infinite, rotateHue 18s linear infinite;
       }
 
       .ring-system::before,
@@ -359,13 +654,14 @@
       .visual-note {
         position: absolute;
         right: 0;
-        bottom: 18%;
-        width: min(260px, 76%);
+        top: 12%;
+        width: min(250px, 70%);
         border: 1px solid rgba(45, 106, 79, 0.18);
         border-radius: var(--radius);
         background: rgba(253, 250, 246, 0.92);
         box-shadow: var(--shadow);
         padding: 18px;
+        z-index: 2;
       }
 
       .visual-note span {
@@ -381,6 +677,39 @@
         margin-top: 8px;
         color: var(--bark);
         font-size: 1.05rem;
+      }
+
+      .dev-console {
+        position: absolute;
+        left: 2%;
+        bottom: 4%;
+        width: min(278px, 72%);
+        border: 1px solid rgba(45, 106, 79, 0.18);
+        border-radius: var(--radius);
+        background: rgba(253, 250, 246, 0.9);
+        box-shadow: 0 24px 60px rgba(62, 39, 35, 0.12);
+        padding: 14px;
+        transform: rotate(-2deg);
+        z-index: 3;
+      }
+
+      .dev-console span {
+        display: block;
+        color: var(--brown);
+        font-family: var(--mono);
+        font-size: 0.68rem;
+        font-weight: 800;
+        text-transform: uppercase;
+      }
+
+      .dev-console code {
+        display: block;
+        margin-top: 9px;
+        color: var(--forest);
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        line-height: 1.6;
+        white-space: normal;
       }
 
       .section {
@@ -1030,6 +1359,62 @@
         transform: translateY(0);
       }
 
+      @keyframes gridDrift {
+        from { transform: translate3d(0, 0, 0); }
+        to { transform: translate3d(64px, 64px, 0); }
+      }
+
+      @keyframes rotateSlow {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes rotateHue {
+        0%, 100% { filter: saturate(1) hue-rotate(0deg); }
+        50% { filter: saturate(1.08) hue-rotate(-8deg); }
+      }
+
+      @keyframes morphRing {
+        0%, 100% { border-radius: 50%; transform: translate3d(0, 0, 0) scale(1); }
+        50% { border-radius: 42% 58% 50% 50%; transform: translate3d(0, -10px, 0) scale(1.02); }
+      }
+
+      @keyframes floatTile {
+        0%, 100% { transform: translate3d(0, 0, 0) rotate(14deg); }
+        50% { transform: translate3d(18px, -24px, 0) rotate(20deg); }
+      }
+
+      @keyframes railSlide {
+        0%, 100% { transform: translate3d(0, 0, 0) rotate(-11deg); }
+        50% { transform: translate3d(-28px, 12px, 0) rotate(-7deg); }
+      }
+
+      @keyframes pixelPulse {
+        0%, 100% { opacity: 0.34; transform: translate3d(0, 0, 0) scale(1); }
+        50% { opacity: 0.78; transform: translate3d(-10px, -8px, 0) scale(1.04); }
+      }
+
+      @keyframes scanLine {
+        0%, 100% { transform: translateX(-40%); opacity: 0.55; }
+        50% { transform: translateX(40%); opacity: 1; }
+      }
+
+      @keyframes barDance {
+        0%, 100% { transform: scaleY(0.72); opacity: 0.72; }
+        50% { transform: scaleY(1); opacity: 1; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+
       @media (max-width: 1023px) {
         .desktop-nav,
         .contact-cta { display: none; }
@@ -1040,6 +1425,7 @@
         .footer-grid { grid-template-columns: 1fr; }
         .hero-visual { min-height: 380px; }
         .visual-note { right: 8%; }
+        .welcome-card { grid-template-columns: 1fr; }
       }
 
       @media (max-width: 767px) {
@@ -1063,10 +1449,75 @@
         .portfolio-summary .tag { grid-column: 1 / -1; width: fit-content; }
         .news-item { grid-template-columns: 1fr; }
         .brand { font-size: 1.1rem; }
+        .motion-field { opacity: 0.54; }
+        .shape-ring { width: 260px; height: 260px; right: -120px; }
+        .hero-visual { min-height: 320px; }
+        .dev-console { bottom: auto; top: 14px; }
+        .welcome-card { padding: 22px; }
+        .welcome-card h2 { font-size: clamp(2.25rem, 13vw, 3.6rem); }
       }
     </style>
+    <noscript>
+      <style>
+        body.welcome-pending .site-header,
+        body.welcome-pending .mobile-nav,
+        body.welcome-pending main,
+        body.welcome-pending .site-footer {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
+        }
+
+        .welcome-gate,
+        .motion-field {
+          display: none;
+        }
+      </style>
+    </noscript>
   </head>
-  <body>
+  <body class="welcome-pending">
+    <div class="motion-field" aria-hidden="true">
+      <span class="motion-shape shape-ring"></span>
+      <span class="motion-shape shape-square"></span>
+      <span class="motion-shape shape-rail"></span>
+      <span class="motion-shape shape-pixels"></span>
+    </div>
+
+    <section class="welcome-gate" data-welcome-gate role="dialog" aria-modal="true" aria-labelledby="welcome-title" aria-describedby="welcome-copy" tabindex="-1" hidden>
+      <div class="welcome-card">
+        <div>
+          <p class="welcome-kicker">Dynamic launch</p>
+          <h2 id="welcome-title">Dean Phạm Blog đang khởi động.</h2>
+          <p id="welcome-copy">
+            Một trang cá nhân được dựng như một sản phẩm web: có nhịp mở màn, chuyển động có chủ đích, dashboard, accordion, feed tin tức và câu chuyện rõ ràng.
+          </p>
+          <div class="welcome-actions">
+            <button class="welcome-button primary" type="button" data-welcome-close>
+              Vào trang chính <i class="ti ti-arrow-right"></i>
+            </button>
+            <a class="welcome-button ghost" href="#portfolio" data-welcome-close>
+              Xem danh mục <i class="ti ti-folders"></i>
+            </a>
+          </div>
+        </div>
+        <aside class="welcome-terminal" aria-label="Trạng thái khởi động trang">
+          <div class="terminal-top" aria-hidden="true"><span></span><span></span><span></span></div>
+          <div class="code-line"><strong>01</strong><span>load brand.system()</span></div>
+          <div class="code-line"><strong>02</strong><span>render journey.timeline</span></div>
+          <div class="code-line"><strong>03</strong><span>mount finance.dashboard</span></div>
+          <div class="code-line"><strong>04</strong><span>activate motion.shapes</span></div>
+          <div class="signal-bars" aria-hidden="true">
+            <span style="--h: 42%; --d: 0ms"></span>
+            <span style="--h: 70%; --d: 90ms"></span>
+            <span style="--h: 54%; --d: 180ms"></span>
+            <span style="--h: 88%; --d: 270ms"></span>
+            <span style="--h: 63%; --d: 360ms"></span>
+            <span style="--h: 78%; --d: 450ms"></span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
     <header class="site-header" data-header>
       <div class="container nav-wrap">
         <a class="brand" href="#hero" aria-label="Dean Phạm Blog">
@@ -1118,6 +1569,7 @@
           <div class="hero-visual" aria-hidden="true" data-reveal>
             <div class="ring-system"></div>
             <div class="visual-note"><span>Thesis</span><strong>Không phô trương. Chỉ xây từng viên gạch cho đúng.</strong></div>
+            <div class="dev-console"><span>Build note</span><code>const life = build({ discipline, finance, craft });</code></div>
           </div>
         </div>
       </section>
@@ -1250,6 +1702,10 @@
       const refreshNewsButton = document.querySelector("[data-refresh-news]");
       const newsList = document.querySelector("[data-news-list]");
       const newsTimestamp = document.querySelector("[data-news-timestamp]");
+      const welcomeGate = document.querySelector("[data-welcome-gate]");
+      const welcomeCloseTriggers = document.querySelectorAll("[data-welcome-close]");
+      const welcomeSeenKey = "dean-blog-welcome-seen";
+      const canUsePointerMotion = window.matchMedia("(hover: hover) and (pointer: fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
       const fallbackNews = [
         { title: "AI agents bước vào quy trình vận hành doanh nghiệp nhỏ", source: "Tech Brief", category: "AI", summary: "Các công cụ mới tập trung vào tự động hóa tác vụ lặp lại thay vì chỉ tạo nội dung." },
@@ -1264,10 +1720,77 @@
         header.classList.toggle("is-scrolled", window.scrollY > 50);
       }
 
+      function readSessionFlag(key) {
+        try {
+          return sessionStorage.getItem(key);
+        } catch {
+          return null;
+        }
+      }
+
+      function writeSessionFlag(key, value) {
+        try {
+          sessionStorage.setItem(key, value);
+        } catch {
+          return false;
+        }
+        return true;
+      }
+
       function closeMenu() {
         document.body.classList.remove("menu-open");
         mobileNav.classList.remove("is-open");
         menuToggle.setAttribute("aria-label", "Mở menu");
+      }
+
+      function revealSite() {
+        document.body.classList.remove("welcome-pending");
+        document.body.classList.remove("welcome-active");
+      }
+
+      function closeWelcomeGate() {
+        if (!welcomeGate || welcomeGate.hidden) return;
+        revealSite();
+        welcomeGate.classList.remove("is-open");
+        welcomeGate.classList.add("is-leaving");
+        writeSessionFlag(welcomeSeenKey, "true");
+        window.setTimeout(() => {
+          welcomeGate.hidden = true;
+          welcomeGate.classList.remove("is-leaving");
+        }, 340);
+      }
+
+      function initWelcomeGate() {
+        if (!welcomeGate) {
+          revealSite();
+          return;
+        }
+
+        const welcomeParams = new URLSearchParams(window.location.search);
+        const forceWelcome = welcomeParams.get("welcome") === "1";
+        const skipWelcome = welcomeParams.get("welcome") === "0" || window.location.hash.length > 1;
+        const shouldShowWelcome = forceWelcome || (!skipWelcome && readSessionFlag(welcomeSeenKey) !== "true");
+
+        welcomeCloseTriggers.forEach((trigger) => {
+          trigger.addEventListener("click", closeWelcomeGate);
+        });
+
+        window.addEventListener("keydown", (event) => {
+          if (event.key === "Escape") closeWelcomeGate();
+        });
+
+        if (!shouldShowWelcome) {
+          welcomeGate.hidden = true;
+          revealSite();
+          return;
+        }
+
+        welcomeGate.hidden = false;
+        document.body.classList.add("welcome-active");
+        window.requestAnimationFrame(() => {
+          welcomeGate.classList.add("is-open");
+          welcomeGate.focus({ preventScroll: true });
+        });
       }
 
       function renderNews(items) {
@@ -1297,8 +1820,18 @@
         }
       }
 
+      initWelcomeGate();
       window.addEventListener("scroll", setHeaderState, { passive: true });
       setHeaderState();
+
+      if (canUsePointerMotion) {
+        window.addEventListener("pointermove", (event) => {
+          const x = (event.clientX / window.innerWidth - 0.5) * 16;
+          const y = (event.clientY / window.innerHeight - 0.5) * 12;
+          document.documentElement.style.setProperty("--mx", x.toFixed(2));
+          document.documentElement.style.setProperty("--my", y.toFixed(2));
+        }, { passive: true });
+      }
 
       menuToggle?.addEventListener("click", () => {
         const isOpen = mobileNav.classList.toggle("is-open");
