@@ -9,9 +9,13 @@
     <meta property="og:title" content="Dinh | Dynamic Portfolio">
     <meta property="og:description" content="A dynamic portfolio with welcome page, interactive hero, frontend projects, and responsive UI work.">
     <meta property="og:url" content="https://deanpham117.github.io/Portfolio/">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+      rel="preload"
+      as="image"
+      href="assets/hero-workspace-1400.webp"
+      imagesrcset="assets/hero-workspace-760.webp 760w, assets/hero-workspace-1400.webp 1400w"
+      imagesizes="100vw"
+    >
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="stylesheet" href="styles.css">
     <noscript>
@@ -28,6 +32,23 @@
     </noscript>
   </head>
   <body class="welcome-pending">
+    <svg class="icon-sprite" aria-hidden="true" focusable="false">
+      <symbol id="icon-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+      <symbol id="icon-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+      <symbol id="icon-theme" viewBox="0 0 24 24"><path d="M12 4v2M12 18v2M4 12h2M18 12h2M6.6 6.6 8 8M16 16l1.4 1.4M17.4 6.6 16 8M8 16l-1.4 1.4"/><circle cx="12" cy="12" r="3.2"/></symbol>
+      <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+      <symbol id="icon-rocket" viewBox="0 0 24 24"><path d="M8 16c-2 1-3 3-3 3s2-1 3-3ZM14 4c3 1 5 3 6 6-2 5-6 8-11 10l-5-5C6 10 9 6 14 4Z"/><path d="M9 15 5 11M13 7l4 4"/><circle cx="14.5" cy="9.5" r="1.5"/></symbol>
+      <symbol id="icon-sparkles" viewBox="0 0 24 24"><path d="m12 3 1.7 4.3L18 9l-4.3 1.7L12 15l-1.7-4.3L6 9l4.3-1.7L12 3ZM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15ZM5 14l.8 2.2L8 17l-2.2.8L5 20l-.8-2.2L2 17l2.2-.8L5 14Z"/></symbol>
+      <symbol id="icon-mail" viewBox="0 0 24 24"><path d="M4 6h16v12H4z"/><path d="m4 7 8 6 8-6"/></symbol>
+      <symbol id="icon-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+      <symbol id="icon-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+      <symbol id="icon-send" viewBox="0 0 24 24"><path d="M21 3 10 14"/><path d="m21 3-7 18-4-7-7-4 18-7Z"/></symbol>
+      <symbol id="icon-panel" viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 10h16M9 10v9"/></symbol>
+      <symbol id="icon-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></symbol>
+      <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 8-4 4 4 4M16 8l4 4-4 4M14 4l-4 16"/></symbol>
+      <symbol id="icon-external" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9"/><path d="M18 13v7H4V6h7"/></symbol>
+      <symbol id="icon-link" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7 0l2-2a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-2 2a5 5 0 0 0 7 7l1-1"/></symbol>
+    </svg>
     <div
       class="welcome-gate"
       data-welcome-gate
@@ -80,10 +101,10 @@
         <div class="welcome-actions">
           <button class="button primary" type="button" data-welcome-close>
             Enter portfolio
-            <i data-lucide="arrow-right"></i>
+            <svg class="icon"><use href="#icon-arrow-right"></use></svg>
           </button>
           <a class="button quiet" href="#projects" data-welcome-close>
-            <i data-lucide="layout-grid"></i>
+            <svg class="icon"><use href="#icon-grid"></use></svg>
             View work
           </a>
         </div>
@@ -106,10 +127,10 @@
 
       <div class="header-actions">
         <button class="icon-button" type="button" data-theme-toggle aria-label="Toggle theme" title="Toggle theme">
-          <i data-lucide="sun-moon"></i>
+          <svg class="icon"><use href="#icon-theme"></use></svg>
         </button>
         <button class="icon-button mobile-menu-button" type="button" data-menu-toggle aria-label="Open menu" title="Menu">
-          <i data-lucide="menu"></i>
+          <svg class="icon"><use href="#icon-menu"></use></svg>
         </button>
       </div>
     </header>
@@ -125,7 +146,16 @@
     <main id="top">
       <section class="hero" aria-labelledby="hero-title">
         <picture class="hero-media">
-          <img src="assets/hero-workspace.png" alt="Modern desk with laptop, code blocks, and interface sketches">
+          <source srcset="assets/hero-workspace-760.webp" media="(max-width: 640px)" type="image/webp">
+          <source srcset="assets/hero-workspace-1400.webp" type="image/webp">
+          <img
+            src="assets/hero-workspace.png"
+            width="1672"
+            height="941"
+            decoding="async"
+            fetchpriority="high"
+            alt="Modern desk with laptop, code blocks, and interface sketches"
+          >
         </picture>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -144,15 +174,15 @@
               </div>
               <div class="hero-actions">
                 <a class="button primary" href="#projects">
-                  <i data-lucide="rocket"></i>
+                  <svg class="icon"><use href="#icon-rocket"></use></svg>
                   View projects
                 </a>
                 <a class="button secondary" href="#fit">
-                  <i data-lucide="sparkles"></i>
+                  <svg class="icon"><use href="#icon-sparkles"></use></svg>
                   Review fit
                 </a>
                 <a class="button secondary" href="#contact">
-                  <i data-lucide="mail"></i>
+                  <svg class="icon"><use href="#icon-mail"></use></svg>
                   Contact
                 </a>
               </div>
@@ -232,7 +262,7 @@
           </div>
         </div>
         <a class="hero-scroll-indicator" href="#fit" aria-label="Scroll to fit section">
-          <i data-lucide="chevron-down"></i>
+          <svg class="icon"><use href="#icon-chevron-down"></use></svg>
         </a>
       </section>
 
@@ -359,7 +389,7 @@
             <article class="project-card" data-category="website">
               <div class="project-topline">
                 <span>Website</span>
-                <i data-lucide="globe-2"></i>
+                <svg class="icon"><use href="#icon-globe"></use></svg>
               </div>
               <h3>Personal portfolio system</h3>
               <p>
@@ -375,7 +405,7 @@
             <article class="project-card" data-category="landing">
               <div class="project-topline">
                 <span>Landing</span>
-                <i data-lucide="send"></i>
+                <svg class="icon"><use href="#icon-send"></use></svg>
               </div>
               <h3>Product landing page</h3>
               <p>
@@ -391,7 +421,7 @@
             <article class="project-card" data-category="interface">
               <div class="project-topline">
                 <span>Interface</span>
-                <i data-lucide="panel-top"></i>
+                <svg class="icon"><use href="#icon-panel"></use></svg>
               </div>
               <h3>Task board prototype</h3>
               <p>
@@ -407,7 +437,7 @@
             <article class="project-card" data-category="interface">
               <div class="project-topline">
                 <span>Interface</span>
-                <i data-lucide="shopping-bag"></i>
+                <svg class="icon"><use href="#icon-bag"></use></svg>
               </div>
               <h3>Product grid experience</h3>
               <p>
@@ -468,19 +498,19 @@
           </div>
           <div class="contact-actions" aria-label="Contact actions">
             <a class="contact-link" href="mailto:dinh@example.com">
-              <i data-lucide="mail"></i>
+              <svg class="icon"><use href="#icon-mail"></use></svg>
               dinh@example.com
             </a>
             <a class="contact-link" href="https://github.com/DEANPHAM117" target="_blank" rel="noopener">
-              <i data-lucide="code-2"></i>
+              <svg class="icon"><use href="#icon-code"></use></svg>
               GitHub
             </a>
             <a class="contact-link" href="#" aria-label="LinkedIn placeholder">
-              <i data-lucide="external-link"></i>
+              <svg class="icon"><use href="#icon-external"></use></svg>
               LinkedIn
             </a>
             <a class="contact-link" href="https://deanpham117.github.io/Portfolio/" target="_blank" rel="noopener">
-              <i data-lucide="link"></i>
+              <svg class="icon"><use href="#icon-link"></use></svg>
               Live portfolio
             </a>
           </div>
@@ -493,9 +523,6 @@
       <span>Dynamic frontend portfolio built for GitHub Pages.</span>
     </footer>
 
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
   </body>
 </html>

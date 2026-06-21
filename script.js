@@ -11,8 +11,22 @@ const filterButtons = document.querySelectorAll("[data-filter]");
 const projectCards = document.querySelectorAll("[data-category]");
 const internalLinks = document.querySelectorAll('a[href^="#"]');
 const hero = document.querySelector(".hero");
+const heroEntranceElements = hero
+  ? hero.querySelectorAll(
+      [
+        ".eyebrow",
+        "h1",
+        ".hero-copy",
+        ".brand-thesis span",
+        ".hero-actions .button",
+        ".hero-command-card",
+        ".hero-scroll-indicator",
+      ].join(", ")
+    )
+  : [];
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const welcomePendingClass = "welcome-pending";
+let headerTicking = false;
 
 const savedTheme = localStorage.getItem("dinh-portfolio-theme");
 if (savedTheme === "dark") {
@@ -21,6 +35,15 @@ if (savedTheme === "dark") {
 
 function updateHeaderState() {
   header?.classList.toggle("is-scrolled", window.scrollY > 24);
+}
+
+function requestHeaderState() {
+  if (headerTicking) return;
+  headerTicking = true;
+  window.requestAnimationFrame(() => {
+    updateHeaderState();
+    headerTicking = false;
+  });
 }
 
 function closeMenu() {
@@ -67,6 +90,7 @@ if (welcomeGate) {
 
   function revealPortfolio() {
     document.body.classList.remove(welcomePendingClass);
+    document.body.classList.add("portfolio-visible");
     window.dispatchEvent(new CustomEvent("portfolio:visible"));
   }
 
@@ -115,7 +139,7 @@ if (welcomeGate) {
   document.body.classList.remove(welcomePendingClass);
 }
 
-window.addEventListener("scroll", updateHeaderState, { passive: true });
+window.addEventListener("scroll", requestHeaderState, { passive: true });
 updateHeaderState();
 
 menuToggle?.addEventListener("click", () => {
@@ -245,92 +269,30 @@ filterButtons.forEach((button) => {
   });
 });
 
-const heroEntranceElements = hero
-  ? hero.querySelectorAll(
-      [
-        ".eyebrow",
-        "h1",
-        ".hero-copy",
-        ".brand-thesis span",
-        ".hero-actions .button",
-        ".hero-command-card",
-        ".hero-scroll-indicator",
-      ].join(", ")
-    )
-  : [];
-
-function clearInlineMotionStyles(element) {
-  element.style.opacity = "";
-  element.style.transform = "";
-}
-
-if (hero && window.gsap && !prefersReducedMotion) {
-  let heroEntrancePrepared = false;
+if (hero) {
   let heroEntrancePlayed = false;
 
-  function prepareHeroEntrance() {
-    if (heroEntrancePrepared || heroEntrancePlayed) return;
-    heroEntrancePrepared = true;
-    window.gsap.set(heroEntranceElements, { opacity: 0, y: 30 });
-  }
+  heroEntranceElements.forEach((element, index) => {
+    element.dataset.heroReveal = "";
+    element.style.setProperty("--hero-delay", `${Math.min(index, 8) * 36}ms`);
+  });
 
   function playHeroEntrance() {
     if (heroEntrancePlayed) return;
-    prepareHeroEntrance();
     heroEntrancePlayed = true;
-
-    const timeline = window.gsap.timeline({ defaults: { ease: "power3.out" } });
-    timeline
-      .to(".hero .eyebrow", { opacity: 1, y: 0, duration: 0.5 })
-      .to(".hero h1", { opacity: 1, y: 0, duration: 0.75 }, "-=0.22")
-      .to(".hero-copy", { opacity: 1, y: 0, duration: 0.55 }, "-=0.45")
-      .to(".brand-thesis span", { opacity: 1, y: 0, duration: 0.38, stagger: 0.06 }, "-=0.28")
-      .to(".hero-actions .button", { opacity: 1, y: 0, duration: 0.38, stagger: 0.08 }, "-=0.24")
-      .to(".hero-command-card", { opacity: 1, y: 0, duration: 0.58 }, "-=0.46")
-      .to(".hero-scroll-indicator", { opacity: 1, y: 0, duration: 0.32 }, "-=0.18");
-
-    window.setTimeout(() => {
-      heroEntranceElements.forEach((element) => {
-        if (getComputedStyle(element).opacity === "0") {
-          clearInlineMotionStyles(element);
-        }
-      });
-    }, 2200);
+    document.body.classList.add("hero-ready");
   }
 
   function requestHeroEntrance() {
-    const delay = document.body.classList.contains("welcome-active") ? 90 : 0;
+    const delay = document.body.classList.contains("welcome-active") ? 60 : 0;
     window.setTimeout(() => window.requestAnimationFrame(playHeroEntrance), delay);
   }
-
-  window.addEventListener("portfolio:prepare", prepareHeroEntrance, { once: true });
 
   if (document.body.classList.contains(welcomePendingClass) || document.body.classList.contains("welcome-active")) {
     window.addEventListener("portfolio:visible", requestHeroEntrance, { once: true });
   } else {
     requestHeroEntrance();
   }
-
-  const canUseMouseParallax = !window.matchMedia("(hover: none), (pointer: coarse)").matches;
-  if (canUseMouseParallax) {
-    hero.addEventListener("mousemove", (event) => {
-      const x = (event.clientX / window.innerWidth - 0.5) * 2;
-      const y = (event.clientY / window.innerHeight - 0.5) * 2;
-      window.gsap.to(".hero-content", { x: x * 5, y: y * 3, duration: 0.8, overwrite: true });
-    });
-
-    hero.addEventListener("mouseleave", () => {
-      window.gsap.to(".hero-content", {
-        x: 0,
-        y: 0,
-        duration: 0.8,
-        ease: "power2.out",
-        overwrite: true,
-      });
-    });
-  }
-} else {
-  heroEntranceElements.forEach(clearInlineMotionStyles);
 }
 
 const revealItems = document.querySelectorAll(
@@ -355,25 +317,7 @@ if (revealItems.length) {
     item.dataset.reveal = "";
   });
 
-  if (window.gsap && window.ScrollTrigger && !prefersReducedMotion) {
-    window.gsap.registerPlugin(window.ScrollTrigger);
-    window.gsap.set(revealItems, { opacity: 0, y: 44 });
-    window.ScrollTrigger.batch(revealItems, {
-      start: "top 84%",
-      onEnter: (batch) => {
-        batch.forEach((item) => item.classList.add("is-revealed"));
-        window.gsap.to(batch, {
-          opacity: 1,
-          y: 0,
-          duration: 0.62,
-          stagger: 0.07,
-          ease: "power2.out",
-          clearProps: "transform",
-        });
-      },
-      once: true,
-    });
-  } else if ("IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window && !prefersReducedMotion) {
     const revealObserver = new IntersectionObserver(
       (entries, observer) => {
         entries.forEach((entry) => {
@@ -386,12 +330,10 @@ if (revealItems.length) {
     );
 
     revealItems.forEach((item, index) => {
-      item.style.transitionDelay = `${Math.min(index % 6, 5) * 45}ms`;
+      item.style.transitionDelay = `${Math.min(index % 6, 5) * 28}ms`;
       revealObserver.observe(item);
     });
   } else {
     revealItems.forEach((item) => item.classList.add("is-revealed"));
   }
 }
-
-window.lucide?.createIcons();
