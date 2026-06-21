@@ -3,657 +3,499 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Dinh's personal portfolio website.">
-    <title>Dinh | Portfolio</title>
-    <style>
-      :root {
-        --ink: #11130f;
-        --muted: #5e665f;
-        --paper: #f3f6f5;
-        --panel: #ffffff;
-        --line: #d9e0dc;
-        --teal: #2f7d73;
-        --teal-dark: #1f5b54;
-        --coral: #d76135;
-        --gold: #f1c94a;
-        --shadow: 0 18px 50px rgba(17, 19, 15, 0.12);
-      }
-
-      * {
-        box-sizing: border-box;
-      }
-
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        background: var(--paper);
-        color: var(--ink);
-        font-family: Arial, Helvetica, sans-serif;
-        line-height: 1.6;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      img {
-        display: block;
-        max-width: 100%;
-      }
-
-      .site-header {
-        position: sticky;
-        top: 0;
-        z-index: 20;
-        border-bottom: 1px solid rgba(217, 224, 220, 0.82);
-        background: rgba(243, 246, 245, 0.92);
-        backdrop-filter: blur(14px);
-      }
-
-      .nav {
-        width: min(1180px, calc(100% - 40px));
-        min-height: 68px;
-        margin: 0 auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-      }
-
-      .brand {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        font-size: 18px;
-      }
-
-      .brand-mark {
-        width: 34px;
-        height: 34px;
-        display: grid;
-        place-items: center;
-        border-radius: 8px;
-        background: var(--ink);
-        color: var(--gold);
-        font-weight: 800;
-      }
-
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 18px;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 700;
-      }
-
-      .nav-links a {
-        min-height: 44px;
-        display: inline-flex;
-        align-items: center;
-        border-bottom: 2px solid transparent;
-      }
-
-      .nav-links a:hover,
-      .nav-links a:focus-visible {
-        color: var(--ink);
-        border-color: var(--coral);
-        outline: none;
-      }
-
-      .hero {
-        min-height: 82svh;
-        display: flex;
-        align-items: center;
-        border-bottom: 1px solid var(--line);
-        background:
-          linear-gradient(90deg, rgba(243, 246, 245, 0.97) 0%, rgba(243, 246, 245, 0.9) 42%, rgba(243, 246, 245, 0.24) 74%),
-          url("assets/hero-workspace.png") center right / cover no-repeat;
-      }
-
-      .hero-inner {
-        width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
-        padding: 88px 0 78px;
-      }
-
-      .kicker {
-        margin: 0 0 16px;
-        color: var(--teal-dark);
-        font-size: 15px;
-        font-weight: 800;
-      }
-
-      h1,
-      h2,
-      h3,
-      p {
-        margin-top: 0;
-      }
-
-      h1 {
-        max-width: 710px;
-        margin-bottom: 24px;
-        font-size: 70px;
-        line-height: 0.95;
-        font-weight: 800;
-      }
-
-      .hero-copy {
-        max-width: 620px;
-        margin-bottom: 34px;
-        color: var(--muted);
-        font-size: 20px;
-      }
-
-      .actions {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-      }
-
-      .btn {
-        min-height: 46px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: 1px solid var(--ink);
-        border-radius: 8px;
-        padding: 12px 18px;
-        font-weight: 800;
-        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease;
-      }
-
-      .btn-primary {
-        background: var(--ink);
-        color: #ffffff;
-        box-shadow: 0 12px 26px rgba(17, 19, 15, 0.18);
-      }
-
-      .btn-secondary {
-        background: rgba(255, 255, 255, 0.7);
-        color: var(--ink);
-      }
-
-      .btn:hover,
-      .btn:focus-visible {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow);
-        outline: none;
-      }
-
-      .section {
-        padding: 86px 0;
-      }
-
-      .section-inner {
-        width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
-      }
-
-      .section-header {
-        max-width: 690px;
-        margin-bottom: 36px;
-      }
-
-      .section-header h2 {
-        margin-bottom: 12px;
-        font-size: 42px;
-        line-height: 1.05;
-      }
-
-      .section-header p {
-        color: var(--muted);
-        font-size: 18px;
-      }
-
-      .about-layout {
-        display: grid;
-        grid-template-columns: 1.25fr 0.75fr;
-        gap: 28px;
-        align-items: start;
-      }
-
-      .panel,
-      .project-card {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel);
-      }
-
-      .panel {
-        padding: 28px;
-      }
-
-      .panel p:last-child {
-        margin-bottom: 0;
-      }
-
-      .facts {
-        display: grid;
-        gap: 12px;
-      }
-
-      .fact {
-        min-height: 76px;
-        display: grid;
-        align-content: center;
-        border-left: 4px solid var(--teal);
-        padding-left: 18px;
-      }
-
-      .fact strong {
-        display: block;
-        font-size: 28px;
-        line-height: 1;
-      }
-
-      .fact span {
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 700;
-      }
-
-      .skills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin-top: 22px;
-      }
-
-      .skill {
-        min-height: 36px;
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: #f8faf9;
-        padding: 7px 10px;
-        color: var(--muted);
-        font-size: 14px;
-        font-weight: 800;
-      }
-
-      .work {
-        background: #ffffff;
-        border-top: 1px solid var(--line);
-        border-bottom: 1px solid var(--line);
-      }
-
-      .project-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      .project-card {
-        min-height: 294px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        overflow: hidden;
-        transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-      }
-
-      .project-card:hover {
-        transform: translateY(-4px);
-        border-color: rgba(47, 125, 115, 0.42);
-        box-shadow: var(--shadow);
-      }
-
-      .project-accent {
-        height: 9px;
-        background: linear-gradient(90deg, var(--teal), var(--coral), var(--gold));
-      }
-
-      .project-body {
-        padding: 24px;
-      }
-
-      .project-card h3 {
-        margin-bottom: 10px;
-        font-size: 22px;
-        line-height: 1.2;
-      }
-
-      .project-card p {
-        color: var(--muted);
-      }
-
-      .project-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        padding: 0 24px 24px;
-      }
-
-      .tag {
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 5px 8px;
-        color: var(--muted);
-        font-size: 12px;
-        font-weight: 800;
-      }
-
-      .contact-layout {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 18px;
-      }
-
-      .contact-list {
-        display: grid;
-        gap: 12px;
-      }
-
-      .contact-link {
-        min-height: 56px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 18px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        background: var(--panel);
-        padding: 14px 16px;
-        color: var(--muted);
-        font-weight: 800;
-      }
-
-      .contact-link:hover,
-      .contact-link:focus-visible {
-        border-color: var(--teal);
-        color: var(--ink);
-        outline: none;
-      }
-
-      .site-footer {
-        border-top: 1px solid var(--line);
-        padding: 24px 0;
-        color: var(--muted);
-        font-size: 14px;
-      }
-
-      .footer-inner {
-        width: min(1180px, calc(100% - 40px));
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        gap: 18px;
-      }
-
-      @media (max-width: 920px) {
-        h1 {
-          font-size: 56px;
+    <meta name="description" content="Dinh's dynamic web portfolio for frontend, UI, and responsive website work.">
+    <title>Dinh | Dynamic Portfolio</title>
+    <link rel="canonical" href="https://deanpham117.github.io/Portfolio/">
+    <meta property="og:title" content="Dinh | Dynamic Portfolio">
+    <meta property="og:description" content="A dynamic portfolio with welcome page, interactive hero, frontend projects, and responsive UI work.">
+    <meta property="og:url" content="https://deanpham117.github.io/Portfolio/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <noscript>
+      <style>
+        body.welcome-pending .site-header,
+        body.welcome-pending .mobile-nav,
+        body.welcome-pending main,
+        body.welcome-pending .site-footer {
+          opacity: 1;
+          visibility: visible;
+          pointer-events: auto;
         }
-
-        .hero {
-          background:
-            linear-gradient(90deg, rgba(243, 246, 245, 0.98) 0%, rgba(243, 246, 245, 0.9) 58%, rgba(243, 246, 245, 0.58) 100%),
-            url("assets/hero-workspace.png") center right / cover no-repeat;
-        }
-
-        .about-layout,
-        .contact-layout {
-          grid-template-columns: 1fr;
-        }
-
-        .project-grid {
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-      }
-
-      @media (max-width: 640px) {
-        .nav {
-          width: min(100% - 28px, 1180px);
-          min-height: auto;
-          padding: 14px 0;
-          align-items: flex-start;
-          flex-direction: column;
-          gap: 8px;
-        }
-
-        .nav-links {
-          width: 100%;
-          gap: 12px;
-          overflow-x: auto;
-          padding-bottom: 4px;
-        }
-
-        .hero {
-          min-height: 78svh;
-        }
-
-        .hero-inner,
-        .section-inner,
-        .footer-inner {
-          width: min(100% - 28px, 1180px);
-        }
-
-        h1 {
-          font-size: 44px;
-          line-height: 1;
-        }
-
-        .hero-copy {
-          font-size: 17px;
-        }
-
-        .section {
-          padding: 62px 0;
-        }
-
-        .section-header h2 {
-          font-size: 34px;
-        }
-
-        .project-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .footer-inner {
-          flex-direction: column;
-        }
-      }
-    </style>
+      </style>
+    </noscript>
   </head>
-  <body>
-    <!-- inferred portfolio content: replace role, projects, and contact links with Dinh's real details. -->
-    <header class="site-header">
-      <nav class="nav" aria-label="Primary navigation">
-        <a class="brand" href="#top" aria-label="Dinh portfolio home">
-          <span class="brand-mark">D</span>
-          <span>Dinh</span>
-        </a>
-        <div class="nav-links">
-          <a href="#about">About</a>
-          <a href="#work">Work</a>
-          <a href="#contact">Contact</a>
+  <body class="welcome-pending">
+    <div
+      class="welcome-gate"
+      data-welcome-gate
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcome-title"
+      aria-describedby="welcome-copy"
+      tabindex="-1"
+      hidden
+    >
+      <div class="welcome-card">
+        <div class="welcome-intro">
+          <p class="welcome-kicker">Welcome</p>
+          <h2 id="welcome-title">Hi, I'm Dinh.</h2>
+          <p class="welcome-role"><span>Frontend Portfolio</span></p>
+          <p id="welcome-copy">
+            I build clean, responsive web interfaces with a calm visual system and useful interaction details.
+          </p>
+          <div class="welcome-skill-strip" aria-label="Focus areas">
+            <span>HTML</span>
+            <span>CSS</span>
+            <span>JavaScript</span>
+            <span>Responsive UI</span>
+          </div>
         </div>
+
+        <aside class="welcome-visual" aria-hidden="true">
+          <div class="welcome-panel">
+            <span class="welcome-panel-line"></span>
+            <span class="welcome-panel-line short"></span>
+            <span class="welcome-panel-bar one"></span>
+            <span class="welcome-panel-bar two"></span>
+            <span class="welcome-panel-bar three"></span>
+            <span class="welcome-panel-glow"></span>
+            <strong>D</strong>
+          </div>
+          <div class="welcome-signal">
+            <svg viewBox="0 0 156 52" focusable="false" aria-hidden="true">
+              <path class="signal-grid" d="M12 42H144M12 28H144M12 14H144"></path>
+              <path class="signal-path muted" d="M12 38C31 29 43 33 59 25C76 16 90 22 107 13C121 6 132 10 144 7"></path>
+              <path class="signal-path live" d="M12 38C31 29 43 33 59 25C76 16 90 22 107 13C121 6 132 10 144 7" pathLength="1"></path>
+              <circle class="signal-point one" cx="12" cy="38" r="3"></circle>
+              <circle class="signal-point two" cx="59" cy="25" r="3"></circle>
+              <circle class="signal-point three" cx="107" cy="13" r="3"></circle>
+              <circle class="signal-point four" cx="144" cy="7" r="4"></circle>
+            </svg>
+          </div>
+        </aside>
+
+        <div class="welcome-actions">
+          <button class="button primary" type="button" data-welcome-close>
+            Enter portfolio
+            <i data-lucide="arrow-right"></i>
+          </button>
+          <a class="button quiet" href="#projects" data-welcome-close>
+            <i data-lucide="layout-grid"></i>
+            View work
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Go to top">
+        <span class="brand-mark" aria-hidden="true">D</span>
+        <span>Dinh Portfolio</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Primary navigation">
+        <a href="#fit">Fit</a>
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
       </nav>
+
+      <div class="header-actions">
+        <button class="icon-button" type="button" data-theme-toggle aria-label="Toggle theme" title="Toggle theme">
+          <i data-lucide="sun-moon"></i>
+        </button>
+        <button class="icon-button mobile-menu-button" type="button" data-menu-toggle aria-label="Open menu" title="Menu">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
     </header>
 
+    <nav class="mobile-nav" data-mobile-nav aria-label="Mobile navigation">
+      <a href="#fit">Fit</a>
+      <a href="#about">About</a>
+      <a href="#projects">Projects</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
     <main id="top">
-      <section class="hero" aria-label="Portfolio introduction">
-        <div class="hero-inner">
-          <p class="kicker">Frontend Developer Portfolio</p>
-          <h1>Clean web interfaces built with care.</h1>
-          <p class="hero-copy">
-            Dinh builds practical, responsive websites with strong structure,
-            thoughtful details, and a simple goal: make the experience easy to use.
-          </p>
-          <div class="actions">
-            <a class="btn btn-primary" href="#work">View projects</a>
-            <a class="btn btn-secondary" href="#contact">Get in touch</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="section-inner">
-          <div class="section-header">
-            <h2>About</h2>
-            <p>
-              A focused portfolio starter for presenting skills, featured work,
-              and contact links in one GitHub Pages friendly page.
-            </p>
-          </div>
-
-          <div class="about-layout">
-            <article class="panel">
-              <p>
-                Dinh is a web builder who likes clean layouts, stable code, and
-                interfaces that feel calm instead of crowded. This section is ready
-                for a short real bio, career goal, or student profile.
+      <section class="hero" aria-labelledby="hero-title">
+        <picture class="hero-media">
+          <img src="assets/hero-workspace.png" alt="Modern desk with laptop, code blocks, and interface sketches">
+        </picture>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <div class="hero-grid">
+            <div class="hero-body">
+              <p class="eyebrow">Dynamic Web Portfolio</p>
+              <h1 id="hero-title">Clean web experiences that feel fast, clear, and easy to trust.</h1>
+              <p class="hero-copy">
+                A frontend-focused portfolio for Dinh, shaped around responsive layouts, interface polish, and
+                small dynamic details that make a static GitHub Pages site feel alive.
               </p>
-              <p>
-                Replace this copy with Dinh's real story: school, current role,
-                strongest tools, target job, or the kind of projects he wants to
-                be known for.
-              </p>
-              <div class="skills" aria-label="Skills">
-                <span class="skill">HTML</span>
-                <span class="skill">CSS</span>
-                <span class="skill">JavaScript</span>
-                <span class="skill">React</span>
-                <span class="skill">GitHub</span>
-                <span class="skill">Responsive UI</span>
+              <div class="brand-thesis" aria-label="Portfolio values">
+                <span>Simple structure.</span>
+                <span>Useful motion.</span>
+                <span>Responsive by default.</span>
               </div>
-            </article>
+              <div class="hero-actions">
+                <a class="button primary" href="#projects">
+                  <i data-lucide="rocket"></i>
+                  View projects
+                </a>
+                <a class="button secondary" href="#fit">
+                  <i data-lucide="sparkles"></i>
+                  Review fit
+                </a>
+                <a class="button secondary" href="#contact">
+                  <i data-lucide="mail"></i>
+                  Contact
+                </a>
+              </div>
+            </div>
 
-            <aside class="panel facts" aria-label="Portfolio highlights">
-              <div class="fact">
-                <strong>3</strong>
-                <span>Featured project slots</span>
+            <aside class="hero-command-card" data-command-center aria-label="Interactive portfolio focus card">
+              <div class="command-card-header">
+                <span>Live focus</span>
+                <strong>What this portfolio shows</strong>
               </div>
-              <div class="fact">
-                <strong>1</strong>
-                <span>Static page for GitHub Pages</span>
+              <div class="command-tabs" role="list" aria-label="Portfolio focus areas">
+                <button
+                  class="command-tab is-active"
+                  type="button"
+                  data-title="Responsive UI"
+                  data-kpi="Mobile to desktop"
+                  data-copy="Layouts are built to reflow cleanly across phones, tablets, laptops, and wide screens without text collisions."
+                  data-bars="48,62,74,88,82"
+                  aria-pressed="true"
+                >
+                  Layout
+                </button>
+                <button
+                  class="command-tab"
+                  type="button"
+                  data-title="Dynamic details"
+                  data-kpi="Polished interaction"
+                  data-copy="Small motion details guide attention, keep the review calm, and make the portfolio feel intentional from the first screen."
+                  data-bars="35,56,72,68,92"
+                  aria-pressed="false"
+                >
+                  Motion
+                </button>
+                <button
+                  class="command-tab"
+                  type="button"
+                  data-title="Frontend projects"
+                  data-kpi="Web and UI only"
+                  data-copy="The project section stays focused on websites, landing pages, UI prototypes, and app surfaces."
+                  data-bars="42,52,66,79,86"
+                  aria-pressed="false"
+                >
+                  Work
+                </button>
+                <button
+                  class="command-tab"
+                  type="button"
+                  data-title="GitHub Pages ready"
+                  data-kpi="Static deploy"
+                  data-copy="The portfolio is still plain HTML, CSS, and JavaScript, so it deploys quickly from the main branch."
+                  data-bars="52,64,76,84,94"
+                  aria-pressed="false"
+                >
+                  Deploy
+                </button>
               </div>
-              <div class="fact">
-                <strong>0</strong>
-                <span>Build tools required</span>
+              <div class="command-readout" aria-live="polite">
+                <span data-command-kpi>Mobile to desktop</span>
+                <h2 data-command-title>Responsive UI</h2>
+                <p data-command-copy>
+                  Layouts are built to reflow cleanly across phones, tablets, laptops, and wide screens without text collisions.
+                </p>
+                <div class="command-sparkline" data-command-sparkline aria-hidden="true">
+                  <span style="--bar-height: 48%"></span>
+                  <span style="--bar-height: 62%"></span>
+                  <span style="--bar-height: 74%"></span>
+                  <span style="--bar-height: 88%"></span>
+                  <span style="--bar-height: 82%"></span>
+                </div>
+              </div>
+              <div class="command-metrics" aria-label="Portfolio proof points">
+                <div><span>4</span><p>frontend project slots</p></div>
+                <div><span>Web/UI</span><p>project focus only</p></div>
+                <div><span>Static</span><p>GitHub Pages build</p></div>
               </div>
             </aside>
           </div>
         </div>
+        <a class="hero-scroll-indicator" href="#fit" aria-label="Scroll to fit section">
+          <i data-lucide="chevron-down"></i>
+        </a>
       </section>
 
-      <section class="section work" id="work">
-        <div class="section-inner">
-          <div class="section-header">
-            <h2>Selected Work</h2>
+      <section class="snapshot-section" id="fit" aria-label="Portfolio fit">
+        <div class="section-inner snapshot-panel">
+          <div class="snapshot-lead">
+            <p class="section-kicker">30-second fit</p>
+            <h2>Built for frontend and UI opportunities.</h2>
             <p>
-              Swap these cards with Dinh's real projects, screenshots, repo links,
-              and short impact notes.
+              This version keeps Dinh's work focused on practical web interfaces, responsive layouts, and polished public
+              presentation for frontend or UI opportunities.
             </p>
           </div>
+          <div class="snapshot-tools" data-fit-lens>
+            <div class="fit-lens-tabs" role="list" aria-label="Review lens">
+              <button
+                class="fit-lens-tab is-active"
+                type="button"
+                data-title="Fast scan for frontend reviewers"
+                data-tag="Frontend / UI"
+                data-copy="The first screens show role focus, skill stack, proof cards, and project filters without forcing visitors through long case-study pages."
+                data-link="#projects"
+                data-link-label="See projects"
+                aria-pressed="true"
+              >
+                Role
+              </button>
+              <button
+                class="fit-lens-tab"
+                type="button"
+                data-title="Motion that supports the page"
+                data-tag="Welcome + reveal"
+                data-copy="The first impression and section transitions feel polished while staying calm, readable, and easy to scan."
+                data-link="#process"
+                data-link-label="See process"
+                aria-pressed="false"
+              >
+                Motion
+              </button>
+              <button
+                class="fit-lens-tab"
+                type="button"
+                data-title="Lightweight public portfolio"
+                data-tag="GitHub Pages"
+                data-copy="The site is built for a clean public handoff, fast loading, and simple future edits as Dinh adds real links and project proof."
+                data-link="#contact"
+                data-link-label="Contact"
+                aria-pressed="false"
+              >
+                Deploy
+              </button>
+            </div>
+            <article class="fit-lens-readout">
+              <span data-fit-tag>Frontend / UI</span>
+              <h3 data-fit-title>Fast scan for frontend reviewers</h3>
+              <p data-fit-copy>
+                The first screens show role focus, skill stack, proof cards, and project filters without forcing visitors
+                through long case-study pages.
+              </p>
+              <a class="button quiet" href="#projects" data-fit-link>See projects</a>
+            </article>
+          </div>
+        </div>
+      </section>
 
-          <div class="project-grid">
-            <article class="project-card">
-              <div class="project-accent"></div>
-              <div class="project-body">
-                <h3>Portfolio Website</h3>
-                <p>
-                  A personal site for introducing experience, skills, projects,
-                  and contact links in a clear single-page format.
-                </p>
-              </div>
-              <div class="project-tags">
-                <span class="tag">HTML</span>
-                <span class="tag">CSS</span>
-                <span class="tag">GitHub Pages</span>
+      <section class="section about-section" id="about" aria-labelledby="about-title">
+        <div class="section-inner two-column">
+          <div>
+            <p class="section-kicker">About</p>
+            <h2 id="about-title">A portfolio system that can grow with Dinh's real work.</h2>
+            <p>
+              The copy is intentionally flexible until Dinh's real details are added. The structure is ready for a short
+              bio, stronger project links, a resume, and contact channels without changing the whole page.
+            </p>
+          </div>
+          <div class="skill-stack" aria-label="Skill stack">
+            <article class="skill-group">
+              <h3>Core web</h3>
+              <div class="chip-list">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Responsive Layout</span>
               </div>
             </article>
-
-            <article class="project-card">
-              <div class="project-accent"></div>
-              <div class="project-body">
-                <h3>Dashboard Concept</h3>
-                <p>
-                  A clean dashboard layout for tracking key information with cards,
-                  tables, states, and responsive structure.
-                </p>
-              </div>
-              <div class="project-tags">
-                <span class="tag">UI</span>
-                <span class="tag">JavaScript</span>
-                <span class="tag">Data</span>
+            <article class="skill-group">
+              <h3>Interface craft</h3>
+              <div class="chip-list">
+                <span>Visual Hierarchy</span>
+                <span>Interaction States</span>
+                <span>Landing Pages</span>
+                <span>Accessibility Basics</span>
               </div>
             </article>
-
-            <article class="project-card">
-              <div class="project-accent"></div>
-              <div class="project-body">
-                <h3>Landing Page Build</h3>
-                <p>
-                  A polished marketing page with a strong first screen, readable
-                  sections, and fast static deployment.
-                </p>
-              </div>
-              <div class="project-tags">
-                <span class="tag">Design</span>
-                <span class="tag">Responsive</span>
-                <span class="tag">Performance</span>
+            <article class="skill-group">
+              <h3>Delivery</h3>
+              <div class="chip-list">
+                <span>GitHub Pages</span>
+                <span>Static Sites</span>
+                <span>Clean Assets</span>
+                <span>Fast Handoff</span>
               </div>
             </article>
           </div>
         </div>
       </section>
 
-      <section class="section" id="contact">
+      <section class="section projects-section" id="projects" aria-labelledby="projects-title">
         <div class="section-inner">
-          <div class="section-header">
-            <h2>Contact</h2>
-            <p>
-              Add Dinh's real email, GitHub, LinkedIn, resume link, or Facebook
-              profile here before publishing.
-            </p>
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Selected work</p>
+              <h2 id="projects-title">Frontend projects only, filtered by the kind of surface.</h2>
+            </div>
+            <div class="project-filter" role="list" aria-label="Project filters">
+              <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">All</button>
+              <button class="filter-button" type="button" data-filter="website" aria-pressed="false">Website</button>
+              <button class="filter-button" type="button" data-filter="interface" aria-pressed="false">Interface</button>
+              <button class="filter-button" type="button" data-filter="landing" aria-pressed="false">Landing</button>
+            </div>
           </div>
 
-          <div class="contact-layout">
-            <article class="panel">
-              <h3>Open to new projects</h3>
+          <div class="project-grid" data-project-grid>
+            <article class="project-card" data-category="website">
+              <div class="project-topline">
+                <span>Website</span>
+                <i data-lucide="globe-2"></i>
+              </div>
+              <h3>Personal portfolio system</h3>
               <p>
-                Use this area for availability, target position, or a friendly
-                note to recruiters and collaborators.
+                A personal website that introduces skills, project direction, and contact links in one polished flow.
               </p>
+              <div class="product-tags">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+              </div>
             </article>
-            <div class="contact-list" aria-label="Contact links">
-              <a class="contact-link" href="mailto:dinh@example.com">
-                <span>dinh@example.com</span>
-                <span>Email</span>
-              </a>
-              <a class="contact-link" href="#" aria-label="GitHub profile placeholder">
-                <span>github.com/your-username</span>
-                <span>GitHub</span>
-              </a>
-              <a class="contact-link" href="#" aria-label="LinkedIn profile placeholder">
-                <span>linkedin.com/in/your-profile</span>
-                <span>LinkedIn</span>
-              </a>
+
+            <article class="project-card" data-category="landing">
+              <div class="project-topline">
+                <span>Landing</span>
+                <i data-lucide="send"></i>
+              </div>
+              <h3>Product landing page</h3>
+              <p>
+                A conversion-focused page pattern with strong first-screen messaging, clear CTAs, and compact proof sections.
+              </p>
+              <div class="product-tags">
+                <span>Hero</span>
+                <span>CTA</span>
+                <span>Responsive</span>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="interface">
+              <div class="project-topline">
+                <span>Interface</span>
+                <i data-lucide="panel-top"></i>
+              </div>
+              <h3>Task board prototype</h3>
+              <p>
+                A clean interface concept for viewing tasks, priorities, status, and action states in a compact dashboard layout.
+              </p>
+              <div class="product-tags">
+                <span>UI</span>
+                <span>Cards</span>
+                <span>States</span>
+              </div>
+            </article>
+
+            <article class="project-card" data-category="interface">
+              <div class="project-topline">
+                <span>Interface</span>
+                <i data-lucide="shopping-bag"></i>
+              </div>
+              <h3>Product grid experience</h3>
+              <p>
+                An ecommerce-style grid with predictable spacing, scannable product cards, and mobile-first layout behavior.
+              </p>
+              <div class="product-tags">
+                <span>Grid</span>
+                <span>Cards</span>
+                <span>Mobile</span>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section process-section" id="process" aria-labelledby="process-title">
+        <div class="section-inner">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Review path</p>
+              <h2 id="process-title">A quick path from first impression to project proof.</h2>
             </div>
+          </div>
+          <div class="process-flow" aria-label="Portfolio review path">
+            <article class="flow-step">
+              <span>01</span>
+              <strong>First impression</strong>
+              <p>Open with a focused role signal and a polished personal mark.</p>
+            </article>
+            <article class="flow-step">
+              <span>02</span>
+              <strong>Fit</strong>
+              <p>Summarize why the portfolio matches frontend and UI work.</p>
+            </article>
+            <article class="flow-step">
+              <span>03</span>
+              <strong>Work</strong>
+              <p>Show website, interface, and landing page examples only.</p>
+            </article>
+            <article class="flow-step">
+              <span>04</span>
+              <strong>Next step</strong>
+              <p>Give recruiters or collaborators clear contact paths.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section" id="contact" aria-labelledby="contact-title">
+        <div class="section-inner contact-layout">
+          <div>
+            <p class="section-kicker">Contact</p>
+            <h2 id="contact-title">Ready for real links, resume, and project repos.</h2>
+            <p>
+              Replace the placeholders below with Dinh's real email, GitHub, LinkedIn, and resume once the final details
+              are available.
+            </p>
+          </div>
+          <div class="contact-actions" aria-label="Contact actions">
+            <a class="contact-link" href="mailto:dinh@example.com">
+              <i data-lucide="mail"></i>
+              dinh@example.com
+            </a>
+            <a class="contact-link" href="https://github.com/DEANPHAM117" target="_blank" rel="noopener">
+              <i data-lucide="code-2"></i>
+              GitHub
+            </a>
+            <a class="contact-link" href="#" aria-label="LinkedIn placeholder">
+              <i data-lucide="external-link"></i>
+              LinkedIn
+            </a>
+            <a class="contact-link" href="https://deanpham117.github.io/Portfolio/" target="_blank" rel="noopener">
+              <i data-lucide="link"></i>
+              Live portfolio
+            </a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <div class="footer-inner">
-        <span>© <span id="year">2026</span> Dinh. All rights reserved.</span>
-        <span>Built for GitHub Pages.</span>
-      </div>
+      <span>Dinh</span>
+      <span>Dynamic frontend portfolio built for GitHub Pages.</span>
     </footer>
 
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

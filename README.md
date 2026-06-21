@@ -1,12 +1,28 @@
-# Dinh Portfolio Starter
+# Dinh Dynamic Portfolio
 
-Static portfolio website for GitHub Pages. Open `index.html` directly in a browser, or push this folder to a GitHub repo and enable Pages.
+Static portfolio website for GitHub Pages, modeled after the dynamic welcome-page pattern in the sample portfolio folder. Open `index.html` directly in a browser, or push this folder to a GitHub repo and enable Pages.
 
 ## Files
 
 - `index.html` - the portfolio page
+- `styles.css` - responsive layout, welcome screen, theme, cards, and section styling
+- `script.js` - welcome session state, theme toggle, mobile menu, interactive tabs, project filtering, and reveal motion
 - `assets/hero-workspace.png` - generated hero image for the first screen
+- `assets/favicon.svg` - browser icon
 - `.nojekyll` - tells GitHub Pages to publish files as-is
+
+## Portfolio style
+
+This version follows the sample portfolio's interaction pattern:
+
+- First-visit welcome page
+- Dynamic hero focus card
+- Fit lens tabs
+- Project filters
+- Scroll reveal motion
+- Light/dark theme toggle
+
+The project section intentionally excludes BI and Python cases. It only uses frontend, UI, website, and landing page examples.
 
 ## Current target: Portfolio repo
 

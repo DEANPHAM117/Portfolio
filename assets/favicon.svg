@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Dinh portfolio mark">
+  <rect width="64" height="64" rx="12" fill="#111827"/>
+  <path d="M17 46V18h15c9 0 15 5.5 15 14s-6 14-15 14H17Zm9-8h5.5c4.4 0 7.2-2.3 7.2-6s-2.8-6-7.2-6H26v12Z" fill="#6fd1cc"/>
+  <path d="M16 50h32" stroke="#d69b2d" stroke-width="4" stroke-linecap="round"/>
+</svg>
